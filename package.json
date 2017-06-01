@@ -1,0 +1,70 @@
+{
+  "name": "@badgeup/badgeup-ionic-client",
+  "description": "BadgeUp achievements SaaS for Ionic2/3 applications",
+  "homepage": "https://www.badgeup.io/",
+  "author": "Mark Herhold <mark@badgeup.io>",
+  "devDependencies": {
+    "@angular/common": "^4.0.1",
+    "@angular/compiler": "^4.0.1",
+    "@angular/compiler-cli": "^4.0.1",
+    "@angular/core": "^4.0.1",
+    "@angular/platform-browser": "^4.0.1",
+    "@angular/platform-browser-dynamic": "^4.0.1",
+    "@angular/router": "^4.0.1",
+    "@types/applicationinsights-js": "^1.0.1",
+    "@types/core-js": "^0.9.35",
+    "@types/node": "^7.0.5",
+    "awesome-typescript-loader": "^3.0.8",
+    "clean-webpack-plugin": "^0.1.16",
+    "codelyzer": "^2.0.1",
+    "concurrently": "^3.3.0",
+    "core-js": "^2.4.1",
+    "istanbul-instrumenter-loader": "^0.2.0",
+    "reflect-metadata": "^0.1.10",
+    "rimraf": "^2.6.1",
+    "rxjs": "^5.0.2",
+    "script-loader": "^0.7.0",
+    "source-map-loader": "^0.2.0",
+    "systemjs": "^0.20.9",
+    "ts-helpers": "^1.1.1",
+    "tslint": "^4.0.0",
+    "tslint-loader": "^3.4.2",
+    "typedoc": "^0.6.0",
+    "typescript": "^2.2.1",
+    "webpack": "^2.2.1",
+    "zone.js": "^0.8.5"
+  },
+  "bugs": {
+    "url": "https://github.com/BadgeUp/badgeup-ionic-client/issues"
+  },
+  "scripts": {
+    "rimraf": "rimraf",
+    "lint": "tslint ./*.ts ./src/{,*/}*.ts",
+    "clean": "npm cache clean && npm run rimraf -- node_modules dist coverage",
+    "preclean:install": "npm run clean",
+    "clean:install": "npm set progress=false && npm i",
+    "prebuild": "npm run rimraf -- dist",
+    "build": "ngc && webpack"
+  },
+  "main": "dist/app.js",
+  "module": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MarkHerhold/badgeup-ionic-client"
+  },
+  "keywords": [
+    "badgeup",
+    "ionic",
+    "client"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=4.2.0"
+  },
+  "dependencies": {
+    "@badgeup/badgeup-browser-client": "^0.7.0",
+    "whatwg-fetch": "^2.0.3"
+  },
+  "version": "0.0.2"
+}
