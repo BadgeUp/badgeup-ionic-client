@@ -1,6 +1,6 @@
 {
   "name": "@badgeup/badgeup-ionic-client",
-  "description": "BadgeUp achievements SaaS for Ionic2/3 applications",
+  "description": "BadgeUp achievements SaaS for Ionic 2/3 applications",
   "homepage": "https://www.badgeup.io/",
   "author": "Mark Herhold <mark@badgeup.io>",
   "devDependencies": {
@@ -54,12 +54,14 @@
   "typings": "dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MarkHerhold/badgeup-ionic-client"
+    "url": "https://github.com/BadgeUp/badgeup-ionic-client"
   },
   "keywords": [
     "badgeup",
     "ionic",
-    "client"
+    "ionic 2",
+    "client",
+    "achievements"
   ],
   "license": "MIT",
   "engines": {
@@ -69,5 +71,5 @@
     "@badgeup/badgeup-browser-client": "^0.7.0",
     "whatwg-fetch": "^2.0.3"
   },
-  "version": "0.0.2"
+  "version": "0.0.0"
 }
