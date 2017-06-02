@@ -116,6 +116,18 @@ export interface BadgeUpEarnedAchievement {
      * Id of achievement the user has earned
      */
     achievementId: number;
+
+    /**
+     * The name of achievement
+     * This can be set in the admin panel.
+     */
+    name: string;
+
+    /**
+     * The description of achievement
+     * This can be set in the admin panel.
+     */
+    description?: string;
 }
 
 
@@ -160,4 +172,9 @@ export interface BadgeUpStorage {
      * on each event.
      */
     removeEvents(badgeUpEvents: BadgeUpStoredEvent[]);
+}
+
+export interface BadgeUpAchievement {
+    name: string;
+    description?: string;
 }

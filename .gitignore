@@ -18,6 +18,7 @@ coverage
 !spec-bundle.js
 *.map
 *.d.ts
+!declarations.d.ts
 typings
 dist
 *.metadata.js

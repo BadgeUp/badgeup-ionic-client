@@ -9,11 +9,13 @@ import {
   ModuleWithProviders,
   Inject,
   Optional,
-  SkipSelf
+  SkipSelf,
+  APP_INITIALIZER
 } from '@angular/core';
 
 import { BadgeUpClient } from './core/badgeUpClient';
 import { BadgeUpLogger } from './core/badgeUpLogger';
+import { BadgeUpToast } from './core/badgeUpToast';
 
 import { BadgeUpClickEventListener } from './core/directives/badgeUpClickEventListener';
 
@@ -91,8 +93,24 @@ export class BadgeUpModule {
             return new BadgeUpBrowserClient(badgeUpSettings);
           }
         },
+
+        // If the module has been registered & application is being initialized,
+        // send a "Test" event to badgeup servers.
+        {
+            'provide': APP_INITIALIZER,
+            'useFactory': (badgeUpClient: BadgeUpClient) => {
+              return () => {
+                badgeUpClient.emit({
+                  key: 'badgeup:plugin:initialized'
+                });
+              };
+            },
+            'deps': [BadgeUpClient],
+            'multi': true,
+        },
         BadgeUpClient,
-        BadgeUpLogger
+        BadgeUpLogger,
+        BadgeUpToast
       ]
     };
   }

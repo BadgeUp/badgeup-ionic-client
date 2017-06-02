@@ -16,7 +16,7 @@ module.exports = {
     devtool: 'inline-source-map',
 
     resolve: {
-        extensions: ['.ts', '.js']
+        extensions: ['.ts', '.js', '.css']
     },
 
     entry: {
@@ -26,7 +26,7 @@ module.exports = {
     output: {
         path: helpers.root('dist'),
         publicPath: '/',
-        filename: '[name].js',
+        filename: 'index.js',
         library: 'ngx-translate-core',
         libraryTarget: 'umd'
     },
@@ -47,6 +47,13 @@ module.exports = {
                 declaration: false
             },
             exclude: [/\.spec\.ts$/]
+        },
+        {
+            test: /\.css$/,
+            use: [
+                { loader: 'style-loader' },
+                { loader: 'css-loader' }
+            ]
         },
         {
             test: /\.exec\.js$/,

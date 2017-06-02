@@ -2,7 +2,9 @@ import { Injectable, Inject } from '@angular/core';
 import { BadgeUpSettings, BADGEUP_SETTINGS, BADGEUP_BROWSER_CLIENT } from '../config';
 import { BadgeUpStorage, BadgeUpNotificationType, BadgeUpEvent, BadgeUpStoredEvent, BadgeUpEarnedAchievement, BADGEUP_STORAGE } from '../declarations';
 
-import { BadgeUpLogger} from './badgeUpLogger';
+import { BadgeUpLogger } from './badgeUpLogger';
+import { BadgeUpToast } from './badgeUpToast';
+
 
 /**
  * Provider for getting the subject by passing in event key
@@ -29,21 +31,15 @@ import { BadgeUpLogger} from './badgeUpLogger';
  */
 export class BadgeUpClient {
 
-    private badgeUpSettings: BadgeUpSettings;
-    private badgeUpStorage: BadgeUpStorage;
-    private badgeUpBrowserClient: any;
-
     private notificationCallbacks: ((notificationType: BadgeUpNotificationType, data: any) => void)[] = [];
     private subjectProvider: (eventKey: string) => string = null;
 
     constructor(
-        public badgeUpLogger: BadgeUpLogger,
-        @Inject(BADGEUP_SETTINGS) badgeUpSettings: BadgeUpSettings,
-        @Inject(BADGEUP_STORAGE) badgeUpStorage: BadgeUpStorage,
-        @Inject(BADGEUP_BROWSER_CLIENT) badgeUpBrowserClient: any) {
-        this.badgeUpStorage = badgeUpStorage;
-        this.badgeUpBrowserClient = badgeUpBrowserClient;
-        this.badgeUpSettings = badgeUpSettings;
+        private badgeUpLogger: BadgeUpLogger,
+        private badgeUpToast: BadgeUpToast,
+        @Inject(BADGEUP_SETTINGS) private badgeUpSettings: BadgeUpSettings,
+        @Inject(BADGEUP_STORAGE) private badgeUpStorage: BadgeUpStorage,
+        @Inject(BADGEUP_BROWSER_CLIENT) private badgeUpBrowserClient: any) {
     }
 
     /**
@@ -103,12 +99,16 @@ export class BadgeUpClient {
             throw new Error('[BadgeUp] Event key has to be of type string');
         }
 
+        let defaultSubject = 'unknown';
         let subject = badgeUpEvent.subject;
+
+        // if the event does not have subject,
+        // we'll try to see if user has configured subject provider,
+        // and use that. If that doesn't exist or returns null,
+        // we'll fall back to our default value.
         if(!subject) {
             subject = this.subjectProvider ? this.subjectProvider(badgeUpEvent.key) : null;
-            if(!subject) {
-                return;
-            }
+            subject = subject || defaultSubject;
         }
 
         let newBadgeUpEvent: BadgeUpEvent = {
@@ -155,18 +155,29 @@ export class BadgeUpClient {
             progress
                 .filter(p => p.isComplete)
                 .map(p => {
-                    const earnedAchievement: BadgeUpEarnedAchievement = {
-                        achievementId: p.achievementId
-                    };
+                    this.badgeUpBrowserClient.achievements
+                        .get(p.achievementId)
+                        .then(achievement => {
 
-                    this.fire(BadgeUpNotificationType.NewAchievementEarned, earnedAchievement);
+                            const earnedAchievement: BadgeUpEarnedAchievement = {
+                                achievementId: p.achievementId,
+                                name: achievement.name,
+                                description: achievement.description
+                            };
+
+                            this.fire(BadgeUpNotificationType.NewAchievementEarned, earnedAchievement);
+
+                            if(!this.badgeUpSettings.hideToastNotifications) {
+                                this.badgeUpToast.showNewAchievementEarned(earnedAchievement);
+                            }
+                    });
                 });
         };
 
         this.badgeUpStorage
             .getEvents()
             .then((storedEvents: BadgeUpStoredEvent[]) => {
-                const promises = storedEvents.map(storedEvent => {
+                storedEvents.map(storedEvent => {
                 return this.badgeUpBrowserClient.events
                     .create(storedEvent.badgeUpEvent)
                     .catch((err) => this.badgeUpLogger.error(err))
@@ -176,7 +187,7 @@ export class BadgeUpClient {
                         }
 
                         // remove from storage
-                        this.badgeUpStorage.removeEvents([storedEvent])
+                        this.badgeUpStorage.removeEvents([storedEvent]);
 
                         // trigger actions to take based on progress
                         progressHandler(response.progress);

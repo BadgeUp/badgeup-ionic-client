@@ -24,4 +24,14 @@ export interface BadgeUpSettings {
      * in order to send events and read achievements.
     */
     apiKey: string;
+
+    /**
+     * Hide toast notifications
+     * 
+     * By default, if user earns new achievement, a toast
+     * is shown automatically.
+     * 
+     * Set this to true if you'd like to hide the toast notifications.
+     */
+    hideToastNotifications?: boolean;
 }
