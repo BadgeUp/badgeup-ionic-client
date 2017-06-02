@@ -71,5 +71,5 @@
     "@badgeup/badgeup-browser-client": "^0.7.0",
     "whatwg-fetch": "^2.0.3"
   },
-  "version": "0.0.0"
+  "version": "0.1.0"
 }
