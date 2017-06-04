@@ -22,33 +22,27 @@ describe('BadgeUpClient', () => {
     let mockBrowserClient = {
         achievements: {
             get: (achievementId: number) => {
-                return new Promise((resolve, reject) => {
-                    resolve({
-                        achievementId: achievementId,
-                        name: 'test-achievement',
-                        description: 'test achievement used for testing'
-                    });
+                return Promise.resolve({
+                    achievementId: achievementId,
+                    name: 'test-achievement',
+                    description: 'test achievement used for testing'
                 });
             }
         },
 
         events: {
             create: (event: BadgeUpEvent) => {
-                return new Promise((resolve, reject) => {
-                    let createdEvent = {
-                        progress: [{
-                            isComplete: true,
-                            achievementId: achievementId
-                        }]
-                    };
-
-                    resolve(createdEvent);
+                return Promise.resolve({
+                    progress: [{
+                        isComplete: true,
+                        achievementId: achievementId
+                    }]
                 });
             }
         }
     };
 
-    it('#should receive notification when new achievement is earned', (done) => {
+    it('#should receive notification when a new achievement is earned', (done) => {
         let badgeUpClient = new BadgeUpClient(
             mockLogger,
             mockToast,
@@ -57,7 +51,7 @@ describe('BadgeUpClient', () => {
             mockBrowserClient);
 
         badgeUpClient.subscribe((notificationType: BadgeUpNotificationType, data: any) => {
-            if(notificationType === BadgeUpNotificationType.NewAchievementEarned) {
+            if (notificationType === BadgeUpNotificationType.NewAchievementEarned) {
                 let earnedAchievement: BadgeUpEarnedAchievement = <BadgeUpEarnedAchievement>data;
                 expect(earnedAchievement.achievementId).toBe(achievementId);
                 done();
