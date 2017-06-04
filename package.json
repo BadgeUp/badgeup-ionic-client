@@ -3,6 +3,11 @@
   "description": "BadgeUp achievements SaaS for Ionic 2/3 applications",
   "homepage": "https://www.badgeup.io/",
   "author": "Mark Herhold <mark@badgeup.io>",
+  "contributors": [
+    "Chris Eelmaa",
+    "Mark Herhold",
+    "Robert Herhold"
+  ],
   "devDependencies": {
     "jasmine": "^2.5.3",
     "jasmine-spec-reporter": "^4.1.0",
@@ -58,7 +63,6 @@
     "clean:install": "npm set progress=false && npm i",
     "prebuild": "npm run rimraf -- dist",
     "build": "ngc && webpack",
-
     "test": "karma start ./karma.conf.js --browsers Chrome",
     "test-ci": "karma start ./karma.conf.js --single-run --browsers ChromeNoSandboxHeadless"
   },
