@@ -48,7 +48,7 @@ describe('BadgeUpClient', () => {
         }
     };
 
-    it('#should receive notification when new achievement is unlocked', (done) => {
+    it('#should receive notification when new achievement is earned', (done) => {
         let badgeUpClient = new BadgeUpClient(
             mockLogger,
             mockToast,
