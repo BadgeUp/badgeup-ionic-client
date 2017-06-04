@@ -3,7 +3,21 @@
   "description": "BadgeUp achievements SaaS for Ionic 2/3 applications",
   "homepage": "https://www.badgeup.io/",
   "author": "Mark Herhold <mark@badgeup.io>",
+  "contributors": [
+    "Chris Eelmaa",
+    "Mark Herhold",
+    "Robert Herhold"
+  ],
   "devDependencies": {
+    "jasmine": "^2.5.3",
+    "jasmine-spec-reporter": "^4.1.0",
+    "karma": "^1.5.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-jasmine": "^1.1.0",
+    "karma-jasmine-html-reporter": "^0.2.2",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^2.0.3",
+    "null-loader": "^0.1.1",
     "@angular/common": "^4.0.1",
     "@angular/compiler": "^4.0.1",
     "@angular/compiler-cli": "^4.0.1",
@@ -13,7 +27,8 @@
     "@angular/router": "^4.0.1",
     "@types/applicationinsights-js": "^1.0.1",
     "@types/core-js": "^0.9.35",
-    "@types/node": "^7.0.5",
+    "@types/node": "^7.0.8",
+    "@types/jasmine": "^2.5.41",
     "awesome-typescript-loader": "^3.0.8",
     "base64-image-loader": "^1.2.0",
     "clean-webpack-plugin": "^0.1.16",
@@ -47,9 +62,10 @@
     "preclean:install": "npm run clean",
     "clean:install": "npm set progress=false && npm i",
     "prebuild": "npm run rimraf -- dist",
-    "build": "ngc && webpack"
+    "build": "ngc && webpack",
+    "test": "karma start ./karma.conf.js --browsers Chrome",
+    "test-ci": "karma start ./karma.conf.js --single-run --browsers ChromeHeadless"
   },
-  "main": "dist/app.js",
   "module": "dist/index.js",
   "typings": "dist/index.d.ts",
   "repository": {

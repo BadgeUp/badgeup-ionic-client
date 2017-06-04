@@ -1,0 +1,14 @@
+dist: trusty
+sudo: required
+language: node_js
+node_js:
+  - "8"
+git:
+  depth: 1
+addons:
+  apt:
+    packages:
+      - google-chrome-beta # Chrome beta for early headless support, should be removed in the future
+script: npm run test-ci
+env:
+  - CHROME_BIN=/usr/bin/google-chrome-beta

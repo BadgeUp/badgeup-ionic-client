@@ -12,6 +12,7 @@ coverage
 !polyfill-fetch.exec.js
 !polyfill-promise.exec.js
 !karma.conf.js
+!karma-test-shim.js
 !webpack.test.js
 !webpack.config.js
 !helpers.js
