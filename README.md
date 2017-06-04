@@ -1,7 +1,9 @@
-* :warning: This client is still a work-in-progress.
+:warning: This client is still a work-in-progress.
 
-# BadgeUp Ionic Client 
+# BadgeUp Ionic Client
 Official Ionic client for working with [BadgeUp](https://www.badgeup.io/). This client supports Ionic v2/3.
+
+[![Build Status](https://travis-ci.org/BadgeUp/badgeup-ionic-client.svg?branch=master)](https://travis-ci.org/BadgeUp/badgeup-ionic-client)
 
 ## Quickstart
 
@@ -23,7 +25,7 @@ import {BadgeUpModule} from '@badgeup/badgeup-ionic-client';
     BadgeUpModule.forRoot({apiKey: 'YOUR API KEY HERE'}),
     ...
   ],
-  
+
   ...
 })
 
@@ -92,20 +94,20 @@ For example, if you want to track users who press a button by firing an event to
 You can also easily pass data using the badgeUpClickEventData attribute:
 
 ```html
-<button badgeUpClickEvent="game:refresh" 
+<button badgeUpClickEvent="game:refresh"
         badgeUpClickEventData="{foo: true}">Refresh the game</button>
 ```
 
 You can also provide your own event modifier. The following code would decrement the value by one when you click 'Refresh the game'.
 ```html
-<button badgeUpClickEvent="game:refresh" 
-        badgeUpClickEventModifier="@dec" 
+<button badgeUpClickEvent="game:refresh"
+        badgeUpClickEventModifier="@dec"
         badgeUpClickEventModifierValue="1">Refresh the game</button>
 ```
 
 If you'd like to pass dynamic data to any of the attributes, you'd have to use property binding syntax. Just add square brackets:
 ```html
-<button badgeUpClickEvent="game:refresh" 
+<button badgeUpClickEvent="game:refresh"
         [badgeUpClickEventData]="{userRank: getUserRank()}">
         Refresh the game
 </button>
