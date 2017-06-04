@@ -12,4 +12,3 @@ addons:
 script: npm run test-ci
 env:
   - CHROME_BIN=/usr/bin/google-chrome-beta
-  - GOOGLE_CHROME_BINARY=/usr/bin/google-chrome-beta
