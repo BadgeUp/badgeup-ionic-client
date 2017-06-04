@@ -3,9 +3,12 @@ sudo: required
 language: node_js
 node_js:
   - "8"
+git:
+  depth: 1
 addons:
   apt:
     packages:
       - google-chrome-beta
+script: npm run test-ci
 env:
   - GOOGLE_CHROME_BINARY=/usr/bin/google-chrome-beta
