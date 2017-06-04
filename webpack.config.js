@@ -8,8 +8,6 @@ const helpers = require('./helpers'),
 /**
  * Webpack Plugins
  */
-const ProvidePlugin = require('webpack/lib/ProvidePlugin');
-const DefinePlugin = require('webpack/lib/DefinePlugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 
 module.exports = {
