@@ -13,7 +13,7 @@ import badgeUpLogoBase64 from 'base64-image-loader!../assets/badgeup-logo.png';
 export class BadgeUpToast {
     showNewAchievementEarned(badgeUpEarnedAchievement: BadgeUpEarnedAchievement) {
         $iziToast.show({
-            title: `You've earned new achievement: ${badgeUpEarnedAchievement.name}!`,
+            title: `You've earned a new achievement: ${badgeUpEarnedAchievement.name}!`,
             message: `${badgeUpEarnedAchievement.description}`,
 
             color: 'dark',
