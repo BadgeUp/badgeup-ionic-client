@@ -37,28 +37,24 @@ export class BadgeUpLocalStorage implements BadgeUpStorage {
     }
 
     getEvents(): Promise<BadgeUpStoredEvent[]> {
-        let promise = new Promise((resolve, reject) => {
-            let eventStorage = this.inMemoryStorage;
-            let badgeUpEvents: BadgeUpStoredEvent[] = [];
-            if(this.localStorageSupported) {
-                let eventLocalStorage = localStorage.getItem(this.eventStorageKey);
-                if(eventLocalStorage) {
-                    eventStorage = JSON.parse(eventLocalStorage);
-                } else {
-                    eventStorage = {};
-                }
+        let eventStorage = this.inMemoryStorage;
+        let badgeUpEvents: BadgeUpStoredEvent[] = [];
+        if(this.localStorageSupported) {
+            let eventLocalStorage = localStorage.getItem(this.eventStorageKey);
+            if(eventLocalStorage) {
+                eventStorage = JSON.parse(eventLocalStorage);
+            } else {
+                eventStorage = {};
             }
+        }
 
-            for(let key in eventStorage) {
-                if(eventStorage.hasOwnProperty(key)) {
-                    badgeUpEvents.push(eventStorage[key]);
-                }
+        for(let key in eventStorage) {
+            if(eventStorage.hasOwnProperty(key)) {
+                badgeUpEvents.push(eventStorage[key]);
             }
+        }
 
-            resolve(badgeUpEvents);
-        });
-
-        return promise;
+        return Promise.resolve(badgeUpEvents);
     }
 
     removeEvents(badgeUpEvents: BadgeUpStoredEvent[]) {
