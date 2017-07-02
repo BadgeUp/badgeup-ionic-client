@@ -9,7 +9,6 @@
     "moduleResolution": "node",
     "types": [
       "node",
-      "applicationinsights-js",
       "jasmine"
     ],
     "lib": ["es2015", "dom"],
