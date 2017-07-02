@@ -54,7 +54,7 @@ export class BadgeUpEvent {
      * - app:refresh
      * - game:distance:run
      *
-     * as it makes pattern matching easier in the dashboard.
+     * as it makes grouping event types easier.
     */
     key: string;
 
@@ -113,9 +113,9 @@ export enum BadgeUpNotificationType {
  */
 export interface BadgeUpEarnedAchievement {
     /**
-     * Id of achievement the user has earned
+     * A string that uniquely identifies this earned achievement record
      */
-    achievementId: number;
+    id: string;
 
     /**
      * The name of achievement
@@ -128,6 +128,11 @@ export interface BadgeUpEarnedAchievement {
      * This can be set in the admin panel.
      */
     description?: string;
+
+    /**
+     * The original achievement object
+     */
+    achievement: BadgeUpAchievement;
 }
 
 
@@ -175,6 +180,28 @@ export interface BadgeUpStorage {
 }
 
 export interface BadgeUpAchievement {
+    /**
+     * 	A string that uniquely identifies this achievement.
+     */
+    id: string;
+
+    /**
+     * A short, human-readable name. This is presented to users.
+     */
     name: string;
+
+    /**
+     * A human-readable description. This is presented to users.
+     */
     description?: string;
+
+    /**
+     * Meta information object. Custom fields may be added.
+     */
+    meta: any;
+
+    /**
+     * Options that affect the state and operability of this achievement
+     */
+    options: any;
 }

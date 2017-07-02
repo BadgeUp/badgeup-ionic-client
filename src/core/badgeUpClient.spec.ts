@@ -6,7 +6,9 @@ import { BadgeUpToast } from './badgeUpToast';
 import { BadgeUpLocalStorage } from './badgeUpLocalStorage';
 
 describe('BadgeUpClient', () => {
-    let achievementId = 10;
+
+    const achievementId = '10';
+    const earnedAchievementId = '20';
     let mockToast: BadgeUpToast = {
         showNewAchievementEarned: (badgeUpEarnedAchievement: BadgeUpEarnedAchievement) => { }
     };
@@ -35,7 +37,8 @@ describe('BadgeUpClient', () => {
                 return Promise.resolve({
                     progress: [{
                         isComplete: true,
-                        achievementId: achievementId
+                        achievementId,
+                        earnedAchievementId
                     }]
                 });
             }
@@ -53,7 +56,7 @@ describe('BadgeUpClient', () => {
         badgeUpClient.subscribe((notificationType: BadgeUpNotificationType, data: any) => {
             if (notificationType === BadgeUpNotificationType.NewAchievementEarned) {
                 let earnedAchievement: BadgeUpEarnedAchievement = <BadgeUpEarnedAchievement>data;
-                expect(earnedAchievement.achievementId).toBe(achievementId);
+                expect(earnedAchievement.id).toBe(earnedAchievementId);
                 done();
             }
         });

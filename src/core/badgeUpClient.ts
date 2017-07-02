@@ -160,9 +160,10 @@ export class BadgeUpClient {
                         .then(achievement => {
 
                             const earnedAchievement: BadgeUpEarnedAchievement = {
-                                achievementId: p.achievementId,
+                                id: p.earnedAchievementId,
                                 name: achievement.name,
-                                description: achievement.description
+                                description: achievement.description,
+                                achievement
                             };
 
                             this.fire(BadgeUpNotificationType.NewAchievementEarned, earnedAchievement);
