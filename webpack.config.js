@@ -2,13 +2,12 @@
  * Adapted from angular2-webpack-starter
  */
 
-const helpers = require('./helpers'),
-    webpack = require('webpack');
+const helpers = require('./helpers');
+const webpack = require('webpack');
 
 /**
  * Webpack Plugins
  */
-const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 
 module.exports = {
     devtool: 'inline-source-map',
