@@ -45,7 +45,7 @@ describe('BadgeUpClient', () => {
         }
     };
 
-    it('#should receive notification when a new achievement is earned', (done) => {
+    it('should receive notification when a new achievement is earned', (done) => {
         let badgeUpClient = new BadgeUpClient(
             mockLogger,
             mockToast,
@@ -63,6 +63,20 @@ describe('BadgeUpClient', () => {
 
         badgeUpClient.emit({
             key: 'badgeup:test'
+        });
+    });
+
+
+    describe('browser client', () => {
+        it('should expose the underlying browser client', (done) => {
+            let badgeUpClient = new BadgeUpClient(
+                mockLogger,
+                mockToast,
+                mockSettings,
+                mockStorage,
+                mockBrowserClient);
+
+                expect(badgeUpClient.badgeUpBrowserClient).not.toBe(undefined);
         });
     });
 });

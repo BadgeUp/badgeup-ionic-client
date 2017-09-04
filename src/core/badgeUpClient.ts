@@ -5,25 +5,6 @@ import { BadgeUpStorage, BadgeUpNotificationType, BadgeUpEvent, BadgeUpStoredEve
 import { BadgeUpLogger } from './badgeUpLogger';
 import { BadgeUpToast } from './badgeUpToast';
 
-
-/**
- * Provider for getting the subject by passing in event key
- *
- * @callback subjectProvider
- * @param {int} eventkey - The key of event
- * @return {string} subject - The subject to use
- */
-
-/**
- * Notification callback used to receive BadgeUp notifications
- * about user achievements and awards.
- *
- * @callback notificationCallback
- * @param {BadgeUpNotificationType} notificationType - The type of the notification.
- * @param {Object} data - Any data that type of notification has. This can be cast depending on the type of notification.
- */
-
-
 @Injectable()
 /**
  * The `BadgeUpClient` service is used to send events to BadgeUp. It also
@@ -31,15 +12,39 @@ import { BadgeUpToast } from './badgeUpToast';
  */
 export class BadgeUpClient {
 
+    /**
+     * Notification callback used to receive BadgeUp notifications
+     * about user achievements and awards.
+     *
+     * @callback notificationCallback
+     * @param {BadgeUpNotificationType} notificationType - The type of the notification.
+     * @param {Object} data - Any data that type of notification has. This can be cast depending on the type of notification.
+     */
     private notificationCallbacks: ((notificationType: BadgeUpNotificationType, data: any) => void)[] = [];
+
+    /**
+     * Provider for getting the subject by passing in event key
+     *
+     * @callback subjectProvider
+     * @param {int} eventkey - The key of event
+     * @return {string} subject - The subject to use
+     */
     private subjectProvider: (eventKey: string) => string = null;
 
+    /**
+     * BadgeUp Ionic 2/3 client constructor
+     * @param badgeUpLogger - Internal logger.
+     * @param badgeUpToast - Provides toast notifications to users.
+     * @param badgeUpSettings - Client settings.
+     * @param badgeUpStorage - Storage engine for events.
+     * @param browserClient - Underlying browser client that the ionic client relies on. https://github.com/BadgeUp/badgeup-browser-client
+     */
     constructor(
         private badgeUpLogger: BadgeUpLogger,
         private badgeUpToast: BadgeUpToast,
         @Inject(BADGEUP_SETTINGS) private badgeUpSettings: BadgeUpSettings,
         @Inject(BADGEUP_STORAGE) private badgeUpStorage: BadgeUpStorage,
-        @Inject(BADGEUP_BROWSER_CLIENT) private badgeUpBrowserClient: any) {
+        @Inject(BADGEUP_BROWSER_CLIENT) public badgeUpBrowserClient: any) {
     }
 
     /**

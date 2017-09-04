@@ -112,3 +112,13 @@ If you'd like to pass dynamic data to any of the attributes, you'd have to use p
         Refresh the game
 </button>
 ```
+
+## Accessing the Underlying Browser Client
+
+You may want to interact with more of the APIs than the Ionic client currently exposes as a high-level interface.
+You can access the underlying [badgeup-browser-client](https://github.com/BadgeUp/badgeup-browser-client) from the browser client:
+
+```ts
+const client = this.badgeUpClient.badgeUpBrowserClient;
+const achievements = await client.achievements.getAll();
+```
