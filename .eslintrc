@@ -9,7 +9,6 @@
         "modules": true
     },
     "globals": {
-        "_": true,
         "$": true,
         "angular": true,
         "jQuery": true
