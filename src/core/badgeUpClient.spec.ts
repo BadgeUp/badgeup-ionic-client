@@ -68,7 +68,7 @@ describe('BadgeUpClient', () => {
 
 
     describe('browser client', () => {
-        it('should expose the underlying browser client', (done) => {
+        it('should expose the underlying browser client', () => {
             let badgeUpClient = new BadgeUpClient(
                 mockLogger,
                 mockToast,
@@ -76,7 +76,7 @@ describe('BadgeUpClient', () => {
                 mockStorage,
                 mockBrowserClient);
 
-                expect(badgeUpClient.badgeUpBrowserClient).not.toBe(undefined);
+            expect(badgeUpClient.badgeUpBrowserClient).not.toBe(undefined);
         });
     });
 });
