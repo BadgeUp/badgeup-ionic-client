@@ -157,8 +157,11 @@ export class BadgeUpClient {
                 return;
             }
 
+            // get the progress record's related achievement records
             progress
-                .filter(p => p.isComplete)
+                // Filter new, complete achievements only.
+                // TODO: account for achievements that can be earned multiple times
+                .filter(p => (p.isNew && p.isComplete))
                 .map(p => {
                     this.badgeUpBrowserClient.achievements
                         .get(p.achievementId)
