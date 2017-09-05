@@ -15,7 +15,7 @@ export class BadgeUpToast {
     showNewAchievementEarned(badgeUpEarnedAchievement: BadgeUpEarnedAchievement) {
         $iziToast.show({
             title: `Achievement earned: ${badgeUpEarnedAchievement.name}!`,
-            message: `${badgeUpEarnedAchievement.description}`,
+            message: badgeUpEarnedAchievement.description || '',
 
             color: 'dark',
             position: 'bottomCenter',
