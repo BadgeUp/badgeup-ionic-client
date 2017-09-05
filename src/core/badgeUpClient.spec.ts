@@ -23,25 +23,23 @@ describe('BadgeUpClient', () => {
 
     let mockBrowserClient = {
         achievements: {
-            get: (achievementId: number) => {
-                return Promise.resolve({
-                    achievementId: achievementId,
-                    name: 'test-achievement',
-                    description: 'test achievement used for testing'
-                });
-            }
+            get: (achievementId: number) => Promise.resolve({
+                achievementId: achievementId,
+                name: 'test-achievement',
+                description: 'test achievement used for testing'
+            })
         },
 
         events: {
-            create: (event: BadgeUpEvent) => {
-                return Promise.resolve({
-                    progress: [{
-                        isComplete: true,
-                        achievementId,
-                        earnedAchievementId
-                    }]
-                });
-            }
+            create: (event: BadgeUpEvent) => Promise.resolve({
+                progress: [{
+                    // return a new, complete achievement
+                    isComplete: true,
+                    isNew: true,
+                    achievementId,
+                    earnedAchievementId
+                }]
+            })
         }
     };
 
