@@ -120,7 +120,7 @@ export class BadgeUpClient {
             subject: subject,
             key: badgeUpEvent.key,
             modifier: badgeUpEvent.modifier || { '@inc': 1},
-            timestamp: badgeUpEvent.timestamp || Date.now(),
+            timestamp: badgeUpEvent.timestamp || new Date(),
             options: badgeUpEvent.options,
             data: badgeUpEvent.data,
         };

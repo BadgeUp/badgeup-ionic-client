@@ -70,9 +70,9 @@ export class BadgeUpEvent {
 
     /**
      * Object creation date/time string, represented in the UTC ISO 8601 format.
-     * Leave it as undefined, and it will be auto-generated
+     * Leave it as undefined and it will be auto-generated
     */
-    timestamp?: number;
+    timestamp?: Date;
 
     /**
      * 	Options that affect the state and operability of this event.
