@@ -1,16 +1,21 @@
 import { BadgeUpClient } from './badgeUpClient';
+import { BadgeUp as JSClient, Event as BadgeUpEvent, Achievement } from '@badgeup/badgeup-node-client';
 import { BadgeUpSettings } from '../config';
-import { BadgeUpStorage, BadgeUpEarnedAchievement, BadgeUpEvent, BadgeUpStoredEvent, BadgeUpNotificationType } from '../declarations';
+import { BadgeUpStorage, BadgeUpEarnedAchievement, BadgeUpStoredEvent, BadgeUpNotificationType } from '../declarations';
 import { BadgeUpLogger } from './badgeUpLogger';
 import { BadgeUpToast } from './badgeUpToast';
 import { BadgeUpLocalStorage } from './badgeUpLocalStorage';
 
+import * as sinon from 'sinon';
+
+// fake API key with correct format
+const API_KEY = 'eyJhY2NvdW50SWQiOiJ0aGViZXN0IiwiYXBwbGljYXRpb25JZCI6IjEzMzciLCJrZXkiOiJpY2VjcmVhbWFuZGNvb2tpZXN5dW0ifQ=='
+const APPLICATION_ID = '1337';
+
 describe('BadgeUpClient', () => {
 
-    const achievementId = '10';
-    const earnedAchievementId = '20';
     let mockToast: BadgeUpToast = {
-        showNewAchievementEarned: (badgeUpEarnedAchievement: BadgeUpEarnedAchievement) => { }
+        showNewAchievementEarned: (badgeUpEarnedAchievement: Achievement) => { }
     };
 
     let mockLogger: BadgeUpLogger = {
@@ -18,43 +23,48 @@ describe('BadgeUpClient', () => {
         error: message => { }
     };
 
-    let mockSettings: BadgeUpSettings = { apiKey: 'xxxxxxx' };
-    let mockStorage: BadgeUpStorage = new BadgeUpLocalStorage();
-
-    let mockBrowserClient = {
-        achievements: {
-            get: (achievementId: number) => Promise.resolve({
-                achievementId: achievementId,
-                name: 'test-achievement',
-                description: 'test achievement used for testing'
-            })
-        },
-
-        events: {
-            create: (event: BadgeUpEvent) => Promise.resolve({
-                progress: [{
-                    // return a new, complete achievement
-                    isComplete: true,
-                    isNew: true,
-                    achievementId,
-                    earnedAchievementId
-                }]
-            })
-        }
-    };
+    const mockSettings: BadgeUpSettings = { apiKey: API_KEY };
+    const mockStorage: BadgeUpStorage = new BadgeUpLocalStorage();
+    const jsClient = new JSClient({ apiKey: API_KEY });
 
     it('should receive notification when a new achievement is earned', (done) => {
-        let badgeUpClient = new BadgeUpClient(
+
+        const achievementId = '10';
+        const earnedAchievementId = '20';
+
+        // events
+        const eventCreateStub = sinon.stub(jsClient.events, "create");
+        eventCreateStub.onFirstCall().returns(Promise.resolve({
+            progress: [{
+                // return a new, complete achievement
+                isComplete: true,
+                isNew: true,
+                achievementId,
+                earnedAchievementId
+            }]
+        }));
+
+        // achievements
+        const achievementGetStub = sinon.stub(jsClient.achievements, "get");
+        achievementGetStub.onFirstCall().returns(Promise.resolve({
+            applicationId: APPLICATION_ID,
+            achievementId: achievementId,
+            name: 'test-achievement',
+            description: 'test achievement used for testing'
+        }));
+
+        const badgeUpClient = new BadgeUpClient(
             mockLogger,
             mockToast,
             mockSettings,
             mockStorage,
-            mockBrowserClient);
+            jsClient
+        );
 
         badgeUpClient.subscribe((notificationType: BadgeUpNotificationType, data: any) => {
             if (notificationType === BadgeUpNotificationType.NewAchievementEarned) {
-                let earnedAchievement: BadgeUpEarnedAchievement = <BadgeUpEarnedAchievement>data;
-                expect(earnedAchievement.id).toBe(earnedAchievementId);
+                let ea: BadgeUpEarnedAchievement = <BadgeUpEarnedAchievement>data;
+                expect(ea.earnedAchievementId).toBe(earnedAchievementId);
                 done();
             }
         });
@@ -72,9 +82,10 @@ describe('BadgeUpClient', () => {
                 mockToast,
                 mockSettings,
                 mockStorage,
-                mockBrowserClient);
+                jsClient
+            );
 
-            expect(badgeUpClient.badgeUpBrowserClient).not.toBe(undefined);
+            expect(badgeUpClient.badgeUpJSClient).not.toBe(undefined);
         });
     });
 });

@@ -4,7 +4,7 @@ import { EventManager } from '@angular/platform-browser';
 import { BadgeUpClient } from '../badgeUpClient';
 import { BadgeUpLogger } from '../badgeUpLogger';
 
-import { BadgeUpEvent } from '../../declarations';
+import { BadgeUpPartialEvent } from '../../declarations';
 
 
 export class BadgeUpEventListenerSettings {
@@ -44,14 +44,14 @@ export class BadgeUpEventListener implements AfterContentInit {
     });
   }
 
-  public emitEvent(event: any) {
+  public emitEvent(event: BadgeUpEventListenerSettings) {
     const eventKey = this.eventListenerSettings.getEventKey();
     const eventData = this.eventListenerSettings.getEventData();
 
     let eventModifier = this.eventListenerSettings.getEventModifier();
     let eventModifierValue = this.eventListenerSettings.getEventModifierValue();
 
-    const constructedEvent: BadgeUpEvent = {
+    const constructedEvent: BadgeUpPartialEvent = {
       key: eventKey,
       data: eventData
     };

@@ -1,6 +1,6 @@
 /**
  * @module
- * 
+ *
  * BadgeUpModule
  */
 
@@ -21,14 +21,15 @@ import { BadgeUpClickEventListener } from './core/directives/badgeUpClickEventLi
 
 
 import { BadgeUpLocalStorage } from './core/badgeUpLocalStorage';
-import { BadgeUpSettings, BADGEUP_FORROOT_GUARD, BADGEUP_SETTINGS, BADGEUP_BROWSER_CLIENT } from './config';
+import { BadgeUpSettings, BADGEUP_FORROOT_GUARD, BADGEUP_SETTINGS, BADGEUP_JS_CLIENT } from './config';
 import { BADGEUP_STORAGE } from './declarations';
 
-import * as BadgeUpBrowserClient from '@badgeup/badgeup-browser-client';
+import { BadgeUp, Event as BadgeUpEvent } from '@badgeup/badgeup-node-client';
+export { Event as BadgeUpEvent } from '@badgeup/badgeup-node-client';
 
 export { BadgeUpClient } from './core/badgeUpClient';
 export { BadgeUpSettings } from './config';
-export { BadgeUpEvent, BadgeUpNotificationType, BadgeUpEarnedAchievement, BadgeUpEventOptions } from './declarations';
+export { BadgeUpNotificationType, BadgeUpEarnedAchievement } from './declarations';
 
 export function provideForRootGuard(badgeUpClient: BadgeUpClient): any {
   if (badgeUpClient) {
@@ -43,17 +44,17 @@ export function provideForRootGuard(badgeUpClient: BadgeUpClient): any {
   exports: [ BadgeUpClickEventListener ]
 })
 /**
- * The `BadgeUpModule` Ionic2/3 module
- * 
- * Register this module in order to start sending BadgeUp events, 
+ * The `BadgeUpModule` Ionic module
+ *
+ * Register this module in order to start sending BadgeUp events,
  * you have to provide apiKey in order to communicate with BadgeUp server.
- * 
- * The Api key can be generated from BadgeUp dashboard. 
- * 
+ *
+ * The Api key can be generated from BadgeUp dashboard.
+ *
  * Api key needs to have the following permissions:
  *  - event:create
  *  - achievement:read
- * 
+ *
  * in order to create new events, and read achievements.
  */
 export class BadgeUpModule {
@@ -77,8 +78,8 @@ export class BadgeUpModule {
           useFactory: provideForRootGuard,
           deps: [[BadgeUpClient, new Optional(), new SkipSelf()]]
         },
-        { 
-          provide: BADGEUP_SETTINGS, 
+        {
+          provide: BADGEUP_SETTINGS,
           useValue: badgeUpSettings
         },
         {
@@ -88,9 +89,9 @@ export class BadgeUpModule {
           },
         },
         {
-          provide: BADGEUP_BROWSER_CLIENT,
+          provide: BADGEUP_JS_CLIENT,
           useFactory: () => {
-            return new BadgeUpBrowserClient(badgeUpSettings);
+            return new BadgeUp(badgeUpSettings);
           }
         },
 

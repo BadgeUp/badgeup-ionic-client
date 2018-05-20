@@ -1,88 +1,38 @@
-import {
-  OpaqueToken
-} from '@angular/core';
+import { InjectionToken } from '@angular/core';
+import { EventRequest as BadgeUpEvent, Achievement, EventModifier } from '@badgeup/badgeup-node-client';
 
-export const BADGEUP_STORAGE = new OpaqueToken('BADGEUP_STORAGE');
+export const BADGEUP_STORAGE = new InjectionToken('BADGEUP_STORAGE');
 
 /**
- * Used to configure BadgeUp event options
- *
- * @interface BadgeUpEventOptions
+ * plain object for arbitrary data
  */
-export interface BadgeUpEventOptions {
-    /**
-     * Determines if the event should be discarded after it is processed.
-     * This option should be used if there will be a high volume of repetitive events.
-     */
-    discard: boolean;
+export type Data = {
+    [key: string]: any;
 }
 
 /**
  * Used to send events to BadgeUp servers
- *
  */
-export class BadgeUpEvent {
-    /**
-     * The ID of the event.
-     *
-     * This has to be left blank when creating new event,
-     * because server will generate the event,
-     * and send back event with real ID.
-    */
-    id?: number;
-
-    /**
-     * The subject of the event.
-     *
-     * This can be usually left as undefined or NULL,
-     * as the badgeUp client will use the default subject provider,
-     * that is configured through badgeUpClient.setSubjectProvider(..)
-     *
-     * Subject is used to associate an event with the user,
-     * so often it's an email of the user, or user's ID
-    */
-    subject?: string;
-
+export class BadgeUpPartialEvent {
     /**
      * The metric key that will be modified as a result of this event.
-     *
-     * Every event has key. This doesn't have to be predefined
-     * anywhere.
-     *
-     * Try to follow hierarchial convention, for example:
-     *
-     * - app:refresh
-     * - game:distance:run
-     *
-     * as it makes grouping event types easier.
-    */
+     */
     key: string;
 
     /**
      * Metric modifier key/value pair. Key may be one of @inc, @dec, @mult, @div, @set, @min, @max.
-     *
-     * For example, to set inc modifier:
-     *
-     * modifier = {};
-     * modifier['@inc'] = 1;
-    */
-    modifier?: any;
+     */
+    modifier?: EventModifier;
 
     /**
-     * Object creation date/time string, represented in the UTC ISO 8601 format.
-     * Leave it as undefined and it will be auto-generated
-    */
-    timestamp?: Date;
-
-    /**
-     * 	Options that affect the state and operability of this event.
-    */
-    options?: BadgeUpEventOptions;
+     * Uniquely identifies the subject the event is for.
+     */
+    subject?: string;
 
     /**
      * Arbitrary data that can be included to assist with achievement criteria evaluation.
-    */
-    data?: any;
+     */
+    data?: Data | string;
 }
 
 /**
@@ -113,26 +63,14 @@ export enum BadgeUpNotificationType {
  */
 export interface BadgeUpEarnedAchievement {
     /**
-     * A string that uniquely identifies this earned achievement record
+     * A string that uniquely identifies the earned achievement record associated with the achievement
      */
-    id: string;
-
-    /**
-     * The name of achievement
-     * This can be set in the admin panel.
-     */
-    name: string;
-
-    /**
-     * The description of achievement
-     * This can be set in the admin panel.
-     */
-    description?: string;
+    earnedAchievementId: string;
 
     /**
      * The original achievement object
      */
-    achievement: BadgeUpAchievement;
+    achievement: Achievement;
 }
 
 
@@ -177,31 +115,4 @@ export interface BadgeUpStorage {
      * on each event.
      */
     removeEvents(badgeUpEvents: BadgeUpStoredEvent[]);
-}
-
-export interface BadgeUpAchievement {
-    /**
-     * 	A string that uniquely identifies this achievement.
-     */
-    id: string;
-
-    /**
-     * A short, human-readable name. This is presented to users.
-     */
-    name: string;
-
-    /**
-     * A human-readable description. This is presented to users.
-     */
-    description?: string;
-
-    /**
-     * Meta information object. Custom fields may be added.
-     */
-    meta: any;
-
-    /**
-     * Options that affect the state and operability of this achievement
-     */
-    options: any;
 }
