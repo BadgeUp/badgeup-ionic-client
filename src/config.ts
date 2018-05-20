@@ -1,10 +1,8 @@
-import {
-  OpaqueToken
-} from '@angular/core';
+import { InjectionToken } from '@angular/core';
 
-export const BADGEUP_FORROOT_GUARD = new OpaqueToken('BADGEUP_FORROOT_GUARD');
-export const BADGEUP_SETTINGS = new OpaqueToken('BADGEUP_SETTINGS');
-export const BADGEUP_BROWSER_CLIENT = new OpaqueToken('BADGEUP_BROWSER_CLIENT');
+export const BADGEUP_FORROOT_GUARD = new InjectionToken('BADGEUP_FORROOT_GUARD');
+export const BADGEUP_SETTINGS = new InjectionToken('BADGEUP_SETTINGS');
+export const BADGEUP_JS_CLIENT = new InjectionToken('BADGEUP_JS_CLIENT');
 
 /**
  * Used to configure the BadgeUp client
@@ -27,10 +25,10 @@ export interface BadgeUpSettings {
 
     /**
      * Hide toast notifications
-     * 
+     *
      * By default, if user earns new achievement, a toast
      * is shown automatically.
-     * 
+     *
      * Set this to true if you'd like to hide the toast notifications.
      */
     hideToastNotifications?: boolean;

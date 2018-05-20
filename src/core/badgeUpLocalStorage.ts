@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BadgeUpStorage, BadgeUpEvent, BadgeUpStoredEvent } from '../declarations';
+import { BadgeUpStorage, BadgeUpStoredEvent } from '../declarations';
+import { EventRequest } from '@badgeup/badgeup-node-client';
 
 @Injectable()
 export class BadgeUpLocalStorage implements BadgeUpStorage {
@@ -13,7 +14,7 @@ export class BadgeUpLocalStorage implements BadgeUpStorage {
         this.localStorageSupported = !!window.localStorage;
     }
 
-    storeEvent(badgeUpEvent: BadgeUpEvent) {
+    storeEvent(badgeUpEvent: EventRequest) {
 
         const id = '' + (Math.floor(Math.random() * 1e6));
         let storedEvent: BadgeUpStoredEvent = {

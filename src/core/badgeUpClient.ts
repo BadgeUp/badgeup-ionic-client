@@ -1,9 +1,12 @@
 import { Injectable, Inject } from '@angular/core';
-import { BadgeUpSettings, BADGEUP_SETTINGS, BADGEUP_BROWSER_CLIENT } from '../config';
-import { BadgeUpStorage, BadgeUpNotificationType, BadgeUpEvent, BadgeUpStoredEvent, BadgeUpEarnedAchievement, BADGEUP_STORAGE } from '../declarations';
+import { BadgeUpSettings, BADGEUP_SETTINGS, BADGEUP_JS_CLIENT } from '../config';
+import { BadgeUpStorage, BadgeUpNotificationType, BadgeUpStoredEvent, BadgeUpEarnedAchievement, BADGEUP_STORAGE, BadgeUpPartialEvent } from '../declarations';
 
 import { BadgeUpLogger } from './badgeUpLogger';
 import { BadgeUpToast } from './badgeUpToast';
+import { BadgeUp as BadgeUpJSClient, Achievement, EventRequest, EventProgress } from "@badgeup/badgeup-node-client";
+
+const DEFAULT_SUBJECT = 'unknown';
 
 @Injectable()
 /**
@@ -32,7 +35,7 @@ export class BadgeUpClient {
     private subjectProvider: (eventKey: string) => string = null;
 
     /**
-     * BadgeUp Ionic 2/3 client constructor
+     * BadgeUp Ionic client constructor
      * @param badgeUpLogger - Internal logger.
      * @param badgeUpToast - Provides toast notifications to users.
      * @param badgeUpSettings - Client settings.
@@ -44,7 +47,7 @@ export class BadgeUpClient {
         private badgeUpToast: BadgeUpToast,
         @Inject(BADGEUP_SETTINGS) private badgeUpSettings: BadgeUpSettings,
         @Inject(BADGEUP_STORAGE) private badgeUpStorage: BadgeUpStorage,
-        @Inject(BADGEUP_BROWSER_CLIENT) public badgeUpBrowserClient: any) {
+        @Inject(BADGEUP_JS_CLIENT) public badgeUpJSClient: BadgeUpJSClient) {
     }
 
     /**
@@ -88,50 +91,46 @@ export class BadgeUpClient {
     }
 
     /**
-     * Create new BadgeUp event, and send it to server.
+     * Send a new BadgeUp event
      *
      * This method works without internet as well, using local storage to store the events.
-     * They will be synced to server once internet is available again.
-     * @param {badgeUpEvent} badgeUpEvent - The event to send to server
+     * Events will be synced to server once internet is available again.
+     * @param {BadgeUpPartialEvent} badgeUpEvent - The event to send
      */
-    emit(badgeUpEvent: BadgeUpEvent) {
+    emit(e: BadgeUpPartialEvent) {
 
-        if(!badgeUpEvent.key) {
+        if(!e.key) {
             throw new Error('[BadgeUp] Event key is required');
+        } else if(typeof e.key !== 'string') {
+            throw new TypeError('[BadgeUp] Event key has to be of type string');
         }
-
-        if(typeof badgeUpEvent.key !== 'string') {
-            throw new Error('[BadgeUp] Event key has to be of type string');
-        }
-
-        let defaultSubject = 'unknown';
-        let subject = badgeUpEvent.subject;
 
         // if the event does not have subject,
         // we'll try to see if user has configured subject provider,
         // and use that. If that doesn't exist or returns null,
         // we'll fall back to our default value.
+        let subject = e.subject;
         if(!subject) {
-            subject = this.subjectProvider ? this.subjectProvider(badgeUpEvent.key) : null;
-            subject = subject || defaultSubject;
+            subject = this.subjectProvider ? this.subjectProvider(e.key) : null;
+            subject = subject || DEFAULT_SUBJECT;
         }
 
-        let newBadgeUpEvent: BadgeUpEvent = {
-            subject: subject,
-            key: badgeUpEvent.key,
-            modifier: badgeUpEvent.modifier || { '@inc': 1},
-            timestamp: badgeUpEvent.timestamp || new Date(),
-            options: badgeUpEvent.options,
-            data: badgeUpEvent.data,
-        };
+        const er = new EventRequest(
+            subject,
+            e.key,
+            e.modifier
+        );
 
-        // server does not support direct strings,
-        // we have to wrap it inside an object.
-        if(badgeUpEvent.data && typeof(badgeUpEvent.data) === 'string') {
-            newBadgeUpEvent.data = { value: badgeUpEvent.data };
+        // set data
+        if (e.data) {
+            if (typeof e.data === 'string') {
+                er.data = { value: e.data };
+            } else {
+                er.data = e.data;
+            }
         }
 
-        this.badgeUpStorage.storeEvent(newBadgeUpEvent);
+        this.badgeUpStorage.storeEvent(er);
         this.flush();
     }
 
@@ -145,62 +144,57 @@ export class BadgeUpClient {
         }
     }
 
-    //
+    private progressHandler (progress: EventProgress[]): void {
+        if (!Array.isArray(progress)) {
+            return;
+        }
+
+        // get the progress record's related achievement records
+        progress
+            // Filter new, complete achievements only.
+            .filter(p => (p.isNew && p.isComplete))
+            .map(p => {
+                this.badgeUpJSClient.achievements
+                    .get(p.achievementId)
+                    .then((achievement: Achievement) => {
+
+                        const record: BadgeUpEarnedAchievement = {
+                            earnedAchievementId: p.earnedAchievementId,
+                            achievement
+                        };
+
+                        this.fire(BadgeUpNotificationType.NewAchievementEarned, record);
+
+                        if(!this.badgeUpSettings.hideToastNotifications) {
+                            this.badgeUpToast.showNewAchievementEarned(achievement);
+                        }
+                });
+            });
+    };
 
     /**
      * Sends all events in storage, clearing storage
      */
     private flush() {
-
-        const progressHandler = (progress) => {
-            if (!Array.isArray(progress)) {
-                return;
-            }
-
-            // get the progress record's related achievement records
-            progress
-                // Filter new, complete achievements only.
-                // TODO: account for achievements that can be earned multiple times
-                .filter(p => (p.isNew && p.isComplete))
-                .map(p => {
-                    this.badgeUpBrowserClient.achievements
-                        .get(p.achievementId)
-                        .then(achievement => {
-
-                            const earnedAchievement: BadgeUpEarnedAchievement = {
-                                id: p.earnedAchievementId,
-                                name: achievement.name,
-                                description: achievement.description,
-                                achievement
-                            };
-
-                            this.fire(BadgeUpNotificationType.NewAchievementEarned, earnedAchievement);
-
-                            if(!this.badgeUpSettings.hideToastNotifications) {
-                                this.badgeUpToast.showNewAchievementEarned(earnedAchievement);
-                            }
-                    });
-                });
-        };
-
         this.badgeUpStorage
             .getEvents()
             .then((storedEvents: BadgeUpStoredEvent[]) => {
                 storedEvents.map(storedEvent => {
-                return this.badgeUpBrowserClient.events
-                    .create(storedEvent.badgeUpEvent)
-                    .catch((err) => this.badgeUpLogger.error(err))
-                    .then((response) => {
-                        if(!response) {
-                            return;
-                        }
+                    return this.badgeUpJSClient.events
+                        .create(storedEvent.badgeUpEvent)
+                        .catch((err) => this.badgeUpLogger.error(err))
+                        // TODO: on 400 response code, discard event
+                        .then((response) => {
+                            if(!response) {
+                                return;
+                            }
 
-                        // remove from storage
-                        this.badgeUpStorage.removeEvents([storedEvent]);
+                            // remove from storage
+                            this.badgeUpStorage.removeEvents([storedEvent]);
 
-                        // trigger actions to take based on progress
-                        progressHandler(response.progress);
-                    });
+                            // trigger actions to take based on progress
+                            this.progressHandler(response.progress);
+                        });
                });
         });
     }

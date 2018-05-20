@@ -1,7 +1,5 @@
-:warning: This client is still a work-in-progress.
-
 # BadgeUp Ionic Client
-Official Ionic client for working with [BadgeUp](https://www.badgeup.io/). This client supports Ionic v2/3.
+Official Ionic client for working with [BadgeUp](https://www.badgeup.io/). This client supports Ionic 3.
 
 [![Build Status](https://travis-ci.org/BadgeUp/badgeup-ionic-client.svg?branch=master)](https://travis-ci.org/BadgeUp/badgeup-ionic-client)
 
@@ -72,8 +70,8 @@ export class MyApp implements OnDestroy {
 
   badgeUpNotificationCallback(notificationType: BadgeUpNotificationType, data: any) {
     if(notificationType === BadgeUpNotificationType.NewAchievementEarned) {
-      let achievementEarnedData = <BadgeUpEarnedAchievement>data;
-      alert("You have received new achievement woop! " + achievementEarnedData.achievementId);
+      let ea = <BadgeUpEarnedAchievement>data;
+      alert("You earned a new achievement! " + ea.achievement.name);
     }
   }
 }
@@ -113,12 +111,12 @@ If you'd like to pass dynamic data to any of the attributes, you'd have to use p
 </button>
 ```
 
-## Accessing the Underlying Browser Client
+## Accessing the Underlying Client
 
 You may want to interact with more of the APIs than the Ionic client currently exposes as a high-level interface.
-You can access the underlying [badgeup-browser-client](https://github.com/BadgeUp/badgeup-browser-client) from the browser client:
+You can access the underlying [JS client](https://github.com/BadgeUp/badgeup-node-client) from the client:
 
 ```ts
-const client = this.badgeUpClient.badgeUpBrowserClient;
+const client = this.badgeUpClient.badgeUpJSClient;
 const achievements = await client.achievements.getAll();
 ```
