@@ -62,12 +62,25 @@ describe('BadgeUpClient', () => {
         );
 
         badgeUpClient.subscribe((notificationType: BadgeUpNotificationType, data: any) => {
+
+            expect(eventCreateStub.callCount).toEqual(1);
+            expect(achievementGetStub.callCount).toEqual(1);
+
+            // check the event that passed in
+            const callEvent = eventCreateStub.getCall(0).args[0];
+            expect(callEvent).toEqual({
+                subject: 'unknown', // should default to this
+                modifier: { '@inc': 1 }, // should default to this
+                key: 'badgeup:test'
+            });
+
             if (notificationType === BadgeUpNotificationType.NewAchievementEarned) {
                 let ea: BadgeUpEarnedAchievement = <BadgeUpEarnedAchievement>data;
                 expect(ea.earnedAchievementId).toBe(earnedAchievementId);
                 done();
             }
         });
+        debugger;
 
         badgeUpClient.emit({
             key: 'badgeup:test'

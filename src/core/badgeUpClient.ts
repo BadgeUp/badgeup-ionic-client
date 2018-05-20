@@ -91,19 +91,17 @@ export class BadgeUpClient {
     }
 
     /**
-     * Create new BadgeUp event, and send it to server.
+     * Send a new BadgeUp event
      *
      * This method works without internet as well, using local storage to store the events.
-     * They will be synced to server once internet is available again.
-     * @param {EventRequest} badgeUpEvent - The event to send to server
+     * Events will be synced to server once internet is available again.
+     * @param {BadgeUpPartialEvent} badgeUpEvent - The event to send
      */
     emit(e: BadgeUpPartialEvent) {
 
         if(!e.key) {
             throw new Error('[BadgeUp] Event key is required');
-        }
-
-        if(typeof e.key !== 'string') {
+        } else if(typeof e.key !== 'string') {
             throw new TypeError('[BadgeUp] Event key has to be of type string');
         }
 
