@@ -47,11 +47,11 @@ export function provideForRootGuard(badgeUpClient: BadgeUpClient): any {
  * The `BadgeUpModule` Ionic module
  *
  * Register this module in order to start sending BadgeUp events,
- * you have to provide apiKey in order to communicate with BadgeUp server.
+ * you have to provide apiKey in order to communicate with the BadgeUp API.
  *
- * The Api key can be generated from BadgeUp dashboard.
+ * The API key can be generated from BadgeUp dashboard.
  *
- * Api key needs to have the following permissions:
+ * API key needs to have the following permissions:
  *  - event:create
  *  - achievement:read
  *

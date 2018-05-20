@@ -91,7 +91,7 @@
     "node": ">=4.2.0"
   },
   "dependencies": {
-    "@badgeup/badgeup-node-client": "^1.0.0",
+    "@badgeup/badgeup-node-client": "^1.0.1",
     "lodash.get": "^4.4.2",
     "whatwg-fetch": "^2.0.3"
   }
