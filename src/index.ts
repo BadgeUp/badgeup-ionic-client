@@ -96,7 +96,7 @@ export class BadgeUpModule {
         },
 
         // If the module has been registered & application is being initialized,
-        // send a "Test" event to badgeup servers.
+        // send an event to BadgeUp
         {
             'provide': APP_INITIALIZER,
             'useFactory': (badgeUpClient: BadgeUpClient) => {
