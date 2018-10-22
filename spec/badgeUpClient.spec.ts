@@ -1,15 +1,15 @@
-import { BadgeUpClient } from './badgeUpClient';
-import { BadgeUp as JSClient, Event as BadgeUpEvent, Achievement } from '@badgeup/badgeup-node-client';
-import { BadgeUpSettings } from '../config';
-import { BadgeUpStorage, BadgeUpEarnedAchievement, BadgeUpStoredEvent, BadgeUpNotificationType } from '../declarations';
-import { BadgeUpLogger } from './badgeUpLogger';
-import { BadgeUpToast } from './badgeUpToast';
-import { BadgeUpLocalStorage } from './badgeUpLocalStorage';
+import { BadgeUpClient } from '../src/core/badgeUpClient';
+import { BadgeUp as JSClient, Achievement } from '@badgeup/badgeup-node-client';
+import { BadgeUpSettings } from '../src/config';
+import { BadgeUpStorage, BadgeUpEarnedAchievement, BadgeUpNotificationType } from '../src/declarations';
+import { BadgeUpLogger } from '../src/core/badgeUpLogger';
+import { BadgeUpToast } from '../src/core/badgeUpToast';
+import { BadgeUpLocalStorage } from '../src/core/badgeUpLocalStorage';
 
 import * as sinon from 'sinon';
 
 // fake API key with correct format
-const API_KEY = 'eyJhY2NvdW50SWQiOiJ0aGViZXN0IiwiYXBwbGljYXRpb25JZCI6IjEzMzciLCJrZXkiOiJpY2VjcmVhbWFuZGNvb2tpZXN5dW0ifQ=='
+const API_KEY = 'eyJhY2NvdW50SWQiOiJ0aGViZXN0IiwiYXBwbGljYXRpb25JZCI6IjEzMzciLCJrZXkiOiJpY2VjcmVhbWFuZGNvb2tpZXN5dW0ifQ==';
 const APPLICATION_ID = '1337';
 
 describe('BadgeUpClient', () => {
@@ -80,7 +80,6 @@ describe('BadgeUpClient', () => {
                 done();
             }
         });
-        debugger;
 
         badgeUpClient.emit({
             key: 'badgeup:test'

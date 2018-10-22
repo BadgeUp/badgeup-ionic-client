@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "noImplicitAny": false,
+    "noUnusedLocals": true,
     "module": "es2015",
     "target": "es5",
     "emitDecoratorMetadata": true,
@@ -20,8 +21,7 @@
   ],
   "exclude": [
     "node_modules",
-    "bundles",
-    "src/**/*.spec.ts"
+    "bundles"
   ],
   "compileOnSave": false,
   "angularCompilerOptions": {

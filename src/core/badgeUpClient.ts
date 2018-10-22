@@ -170,7 +170,7 @@ export class BadgeUpClient {
                         }
                 });
             });
-    };
+    }
 
     /**
      * Sends all events in storage, clearing storage

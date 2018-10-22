@@ -8,7 +8,7 @@ export const BADGEUP_STORAGE = new InjectionToken('BADGEUP_STORAGE');
  */
 export type Data = {
     [key: string]: any;
-}
+};
 
 /**
  * Used to send events to BadgeUp servers

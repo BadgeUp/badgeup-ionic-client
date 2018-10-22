@@ -47,7 +47,7 @@ let $iziToast = <any>{},
 
 // Default settings
 let defaults = <any>{
-    id: '', 
+    id: '',
     class: '',
     title: '',
     titleColor: '',
@@ -180,14 +180,14 @@ var isColor = function(color) {
  * @private
  */
 var drag = function() {
-    
+
     return {
         move: function(toast, instance, settings, xpos) {
 
             var opacity,
                 opacityRange = 0.3,
                 distance = 180;
-            
+
             toast.style.transform = 'translateX('+xpos + 'px)';
 
             if(xpos > 0) {
@@ -202,7 +202,7 @@ var drag = function() {
                 }
             }
             toast.style.opacity = opacity;
-    
+
             if(opacity < opacityRange) {
 
                 if(ISCHROME || ISFIREFOX) {
@@ -213,7 +213,7 @@ var drag = function() {
 
                 this.stopMoving(toast, null);
             }
-            
+
         },
         startMoving: function(toast, instance, settings, e) {
 
@@ -285,8 +285,7 @@ var moveProgress = function(toast, settings, callback) {
         hideEta: null,
         maxHideTime: null,
         currentTime: new Date().getTime(),
-        updateProgress: function()
-        {
+        updateProgress: function() {
             is.Paused = toast.classList.contains(PLUGIN_NAME+'-paused') ? true : false;
             is.Reseted = toast.classList.contains(PLUGIN_NAME+'-reseted') ? true : false;
             is.Closed = toast.classList.contains(PLUGIN_NAME+'-closed') ? true : false;
@@ -410,7 +409,7 @@ $iziToast.hide = function (options, $toast, closedBy) {
     var H = $toast.parentNode.offsetHeight;
             $toast.parentNode.style.height = H+'px';
             $toast.style.pointerEvents = 'none';
-    
+
     if(!ISMOBILE || window.innerWidth > MOBILEWIDTH) {
         $toast.parentNode.style.transitionDelay = '0.2s';
     }
@@ -510,7 +509,7 @@ $iziToast.show = function (options) {
         }
 
         if (settings.color) { //#, rgb, rgba, hsl
-            
+
             if( isColor(settings.color) ) {
                 $DOM.toast.style.background = settings.color;
             } else {
@@ -521,7 +520,7 @@ $iziToast.show = function (options) {
         if (settings.backgroundColor) {
             $DOM.toast.style.background = settings.backgroundColor;
             if(settings.balloon) {
-                $DOM.toast.style.borderColor = settings.backgroundColor;				
+                $DOM.toast.style.borderColor = settings.backgroundColor;
             }
         }
     })();
@@ -536,7 +535,7 @@ $iziToast.show = function (options) {
             if(settings.rtl) {
                 $DOM.toastBody.style.marginRight = (settings.imageWidth + 10) + 'px';
             } else {
-                $DOM.toastBody.style.marginLeft = (settings.imageWidth + 10) + 'px';				
+                $DOM.toastBody.style.marginLeft = (settings.imageWidth + 10) + 'px';
             }
             $DOM.toast.appendChild($DOM.cover);
         }
@@ -566,7 +565,7 @@ $iziToast.show = function (options) {
             $DOM.progressBarDiv.style.background = settings.progressBarColor;
             $DOM.progressBar.appendChild($DOM.progressBarDiv);
             $DOM.toast.appendChild($DOM.progressBar);
-            
+
             setTimeout(function() {
                 moveProgress($DOM.toast, settings, function() {
                     that.hide(settings, $DOM.toast);
@@ -583,7 +582,7 @@ $iziToast.show = function (options) {
     (function() {
         if (settings.icon) {
             $DOM.icon.setAttribute("class", PLUGIN_NAME + '-icon ' + settings.icon);
-            
+
             if (settings.iconText) {
                 $DOM.icon.appendChild(document.createTextNode(settings.iconText));
             }
@@ -591,9 +590,9 @@ $iziToast.show = function (options) {
             if(settings.rtl) {
                 $DOM.toastBody.style.paddingRight = '33px';
             } else {
-                $DOM.toastBody.style.paddingLeft = '33px';				
+                $DOM.toastBody.style.paddingLeft = '33px';
             }
-            
+
             if (settings.iconColor) {
                 $DOM.icon.style.color = settings.iconColor;
             }
@@ -622,7 +621,7 @@ $iziToast.show = function (options) {
         }
         $DOM.strong.appendChild(createFragElem(settings.title));
     })();
-    
+
     // Message
     (function() {
         if (settings.messageColor) {
@@ -636,7 +635,7 @@ $iziToast.show = function (options) {
             }
         }
         if (settings.messageLineHeight) {
-            
+
             if( !isNaN(settings.titleSize) ) {
                 $DOM.p.style.lineHeight = settings.messageLineHeight+'px';
             } else {
@@ -667,7 +666,7 @@ $iziToast.show = function (options) {
                 $btns[i].addEventListener('click', function (e) {
                     e.preventDefault();
                     var ts = value[1];
-                    return new ts(that, $DOM.toast); 
+                    return new ts(that, $DOM.toast);
                 });
 
                 i++;
@@ -760,7 +759,7 @@ $iziToast.show = function (options) {
     (function() {
         if(settings.animateInside) {
             $DOM.toast.classList.add(PLUGIN_NAME+'-animateInside');
-        
+
             var timeAnimation1 = 200,
                 timeAnimation2 = 100,
                 timeAnimation3 = 300;
@@ -807,7 +806,7 @@ $iziToast.show = function (options) {
     }
 
     if(settings.pauseOnHover) {
-        
+
         $DOM.toast.addEventListener('mouseenter', function (e) {
             this.classList.add(PLUGIN_NAME+'-paused');
         });
