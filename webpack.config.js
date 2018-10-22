@@ -2,8 +2,16 @@
  * Adapted from angular2-webpack-starter
  */
 
-const helpers = require('./helpers');
+const path = require('path');
 const webpack = require('webpack');
+
+// Helper functions
+const ROOT = path.resolve(__dirname, './');
+
+function root(args) {
+    args = Array.prototype.slice.call(arguments, 0);
+    return path.join.apply(path, [ROOT].concat(args));
+}
 
 /**
  * Webpack Plugins
@@ -17,11 +25,11 @@ module.exports = {
     },
 
     entry: {
-        app: ['whatwg-fetch', helpers.root('src/index.ts')]
+        app: [root('src/index.ts')]
     },
 
     output: {
-        path: helpers.root('dist'),
+        path: root('dist'),
         publicPath: '/',
         filename: 'index.js',
         library: 'ngx-translate-core',
@@ -36,7 +44,7 @@ module.exports = {
             enforce: 'pre',
             test: /\.ts$/,
             loader: 'tslint-loader',
-            exclude: [helpers.root('node_modules')]
+            exclude: [root('node_modules')]
         }, {
             test: /\.ts$/,
             loader: 'awesome-typescript-loader',
@@ -58,7 +66,7 @@ module.exports = {
         // fix the warning in ./~/@angular/core/src/linker/system_js_ng_module_factory_loader.js
         new webpack.ContextReplacementPlugin(
             /angular(\\|\/)core(\\|\/)@angular/,
-            helpers.root('./src')
+            root('./src')
         ),
 
         new webpack.LoaderOptionsPlugin({
