@@ -51,10 +51,6 @@ module.exports = {
                 { loader: 'style-loader' },
                 { loader: 'css-loader' }
             ]
-        },
-        {
-            test: /\.exec\.js$/,
-            use: [ 'script-loader' ]
         }]
     },
 

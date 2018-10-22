@@ -9,8 +9,6 @@ node_modules/*
 npm-debug.log
 coverage
 *.js
-!polyfill-fetch.exec.js
-!polyfill-promise.exec.js
 !karma.conf.js
 !karma-test-shim.js
 !webpack.test.js
