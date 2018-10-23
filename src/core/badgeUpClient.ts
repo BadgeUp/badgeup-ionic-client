@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { BadgeUpSettings, BADGEUP_SETTINGS, BADGEUP_JS_CLIENT } from '../config';
-import { BadgeUpStorage, BadgeUpNotificationType, BadgeUpStoredEvent, BadgeUpEarnedAchievement, BADGEUP_STORAGE, BadgeUpPartialEvent } from '../declarations';
+import { BadgeUpStorage, BadgeUpNotificationType, BadgeUpEarnedAchievement, BADGEUP_STORAGE, BadgeUpPartialEvent } from '../declarations';
 
 import { BadgeUpLogger } from './badgeUpLogger';
 import { BadgeUpToast } from './badgeUpToast';
@@ -175,27 +175,25 @@ export class BadgeUpClient {
     /**
      * Sends all events in storage, clearing storage
      */
-    private flush() {
-        this.badgeUpStorage
-            .getEvents()
-            .then((storedEvents: BadgeUpStoredEvent[]) => {
-                storedEvents.map(storedEvent => {
-                    return this.badgeUpJSClient.events
-                        .create(storedEvent.badgeUpEvent)
-                        .catch((err) => this.badgeUpLogger.error(err))
-                        // TODO: on 400 response code, discard event
-                        .then((response) => {
-                            if(!response) {
-                                return;
-                            }
+    private async flush() {
 
-                            // remove from storage
-                            this.badgeUpStorage.removeEvents([storedEvent]);
+        const storedEvents = await this.badgeUpStorage.getEvents();
+        for (let se of storedEvents) {
+            try {
+                const response = await this.badgeUpJSClient.events.create(se.badgeUpEvent);
+                if (!response) {
+                    continue;
+                }
 
-                            // trigger actions to take based on progress
-                            this.progressHandler(response.progress);
-                        });
-               });
-        });
+                // remove from storage
+                this.badgeUpStorage.removeEvents([se]);
+
+                // trigger actions to take based on progress
+                this.progressHandler(response.progress);
+            } catch (err) {
+                // TODO: on 400 response code, discard event
+                this.badgeUpLogger.error(err);
+            }
+        }
     }
 }
