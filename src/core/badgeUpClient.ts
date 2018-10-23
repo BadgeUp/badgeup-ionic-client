@@ -1,10 +1,10 @@
-import { Injectable, Inject } from '@angular/core';
-import { BadgeUpSettings, BADGEUP_SETTINGS, BADGEUP_JS_CLIENT } from '../config';
-import { BadgeUpStorage, BadgeUpNotificationType, BadgeUpEarnedAchievement, BADGEUP_STORAGE, BadgeUpPartialEvent } from '../declarations';
+import { Inject, Injectable } from '@angular/core';
+import { BADGEUP_JS_CLIENT, BADGEUP_SETTINGS, BadgeUpSettings } from '../config';
+import { BADGEUP_STORAGE, BadgeUpEarnedAchievement, BadgeUpNotificationType, BadgeUpPartialEvent, BadgeUpStorage } from '../declarations';
 
+import { Achievement, BadgeUp as BadgeUpJSClient, EventProgress, EventRequest } from '@badgeup/badgeup-node-client';
 import { BadgeUpLogger } from './badgeUpLogger';
 import { BadgeUpToast } from './badgeUpToast';
-import { BadgeUp as BadgeUpJSClient, Achievement, EventRequest, EventProgress } from "@badgeup/badgeup-node-client";
 
 const DEFAULT_SUBJECT = 'unknown';
 
@@ -23,7 +23,7 @@ export class BadgeUpClient {
      * @param {BadgeUpNotificationType} notificationType - The type of the notification.
      * @param {Object} data - Any data that type of notification has. This can be cast depending on the type of notification.
      */
-    private notificationCallbacks: ((notificationType: BadgeUpNotificationType, data: any) => void)[] = [];
+    private notificationCallbacks: Array<(notificationType: BadgeUpNotificationType, data: any) => void> = [];
 
     /**
      * Provider for getting the subject by passing in event key
@@ -80,9 +80,9 @@ export class BadgeUpClient {
      * @param {notificationCallback} notificationCallback - The callback to unsubscribe from.
      */
     unsubscribe(notificationCallback: (notificationType: BadgeUpNotificationType, data: any) => void) {
-        let filtredNotificationCallbacks: ((notificationType: BadgeUpNotificationType, data: any) => void)[] = [];
-        for(let curNotificationCallback of this.notificationCallbacks) {
-            if(curNotificationCallback !== notificationCallback) {
+        const filtredNotificationCallbacks: Array<(notificationType: BadgeUpNotificationType, data: any) => void> = [];
+        for (const curNotificationCallback of this.notificationCallbacks) {
+            if (curNotificationCallback !== notificationCallback) {
                 filtredNotificationCallbacks.push(curNotificationCallback);
             }
         }
@@ -99,9 +99,9 @@ export class BadgeUpClient {
      */
     emit(e: BadgeUpPartialEvent) {
 
-        if(!e.key) {
+        if (!e.key) {
             throw new Error('[BadgeUp] Event key is required');
-        } else if(typeof e.key !== 'string') {
+        } else if (typeof e.key !== 'string') {
             throw new TypeError('[BadgeUp] Event key has to be of type string');
         }
 
@@ -110,7 +110,7 @@ export class BadgeUpClient {
         // and use that. If that doesn't exist or returns null,
         // we'll fall back to our default value.
         let subject = e.subject;
-        if(!subject) {
+        if (!subject) {
             subject = this.subjectProvider ? this.subjectProvider(e.key) : null;
             subject = subject || DEFAULT_SUBJECT;
         }
@@ -135,16 +135,16 @@ export class BadgeUpClient {
     }
 
     private fire(eventType: BadgeUpNotificationType, data: any) {
-        for(let handler of this.notificationCallbacks) {
+        for (const handler of this.notificationCallbacks) {
             try {
                 handler(eventType, data);
-            } catch(e) {
+            } catch (e) {
                 this.badgeUpLogger.error('Notification callback failure ' + e);
             }
         }
     }
 
-    private progressHandler (progress: EventProgress[]): void {
+    private progressHandler(progress: EventProgress[]): void {
         if (!Array.isArray(progress)) {
             return;
         }
@@ -152,8 +152,8 @@ export class BadgeUpClient {
         // get the progress record's related achievement records
         progress
             // Filter new, complete achievements only.
-            .filter(p => (p.isNew && p.isComplete))
-            .map(p => {
+            .filter((p) => (p.isNew && p.isComplete))
+            .map((p) => {
                 this.badgeUpJSClient.achievements
                     .get(p.achievementId)
                     .then((achievement: Achievement) => {
@@ -165,7 +165,7 @@ export class BadgeUpClient {
 
                         this.fire(BadgeUpNotificationType.NewAchievementEarned, record);
 
-                        if(!this.badgeUpSettings.hideToastNotifications) {
+                        if (!this.badgeUpSettings.hideToastNotifications) {
                             this.badgeUpToast.showNewAchievementEarned(achievement);
                         }
                 });
@@ -178,7 +178,7 @@ export class BadgeUpClient {
     private async flush() {
 
         const storedEvents = await this.badgeUpStorage.getEvents();
-        for (let se of storedEvents) {
+        for (const se of storedEvents) {
             try {
                 const response = await this.badgeUpJSClient.events.create(se.badgeUpEvent);
                 if (!response) {

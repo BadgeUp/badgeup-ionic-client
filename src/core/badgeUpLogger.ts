@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+/* tslint:disable:no-console */
+
 @Injectable()
 /**
  * The `BadgeUpLogger` service is used to log messages of different types,

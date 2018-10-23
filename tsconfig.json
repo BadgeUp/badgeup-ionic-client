@@ -15,10 +15,6 @@
     "lib": ["es2017", "dom"],
     "outDir": "dist"
   },
-  "files": [
-    "src/declarations.d.ts",
-    "src/index.ts"
-  ],
   "exclude": [
     "node_modules",
     "bundles"
