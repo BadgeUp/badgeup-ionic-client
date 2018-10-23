@@ -1,14 +1,14 @@
 import { InjectionToken } from '@angular/core';
-import { EventRequest as BadgeUpEvent, Achievement, EventModifier } from '@badgeup/badgeup-node-client';
+import { Achievement, EventModifier, EventRequest as BadgeUpEvent } from '@badgeup/badgeup-node-client';
 
 export const BADGEUP_STORAGE = new InjectionToken('BADGEUP_STORAGE');
 
 /**
  * plain object for arbitrary data
  */
-export type Data = {
+export interface Data {
     [key: string]: any;
-};
+}
 
 /**
  * Used to send events to BadgeUp servers
@@ -72,7 +72,6 @@ export interface BadgeUpEarnedAchievement {
      */
     achievement: Achievement;
 }
-
 
 /**
  * Used to store BadgeUp events in local storage,

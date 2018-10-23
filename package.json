@@ -53,7 +53,7 @@
   },
   "scripts": {
     "rimraf": "rimraf",
-    "lint": "tslint -p tsconfig.json -c tslint.json src/**/*.ts",
+    "lint": "tslint -p tsconfig.json -c tslint.json",
     "clean": "npm run rimraf -- node_modules dist coverage",
     "preclean:install": "npm run clean",
     "clean:install": "npm set progress=false && npm i",

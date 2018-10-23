@@ -16,7 +16,9 @@
       true,
       "spaces"
     ],
-    "label-position": true,
+    "interface-name": false,
+    "max-classes-per-file": false,
+    "only-arrow-functions": false,
     "member-access": false,
     "no-arg": true,
     "no-bitwise": true,

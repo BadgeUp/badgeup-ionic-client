@@ -1,11 +1,10 @@
-import { ElementRef, AfterContentInit } from '@angular/core';
+import { AfterContentInit, ElementRef } from '@angular/core';
 import { EventManager } from '@angular/platform-browser';
 
 import { BadgeUpClient } from '../badgeUpClient';
 import { BadgeUpLogger } from '../badgeUpLogger';
 
 import { BadgeUpPartialEvent } from '../../declarations';
-
 
 export class BadgeUpEventListenerSettings {
   eventName: string;
@@ -38,7 +37,7 @@ export class BadgeUpEventListener implements AfterContentInit {
         // prevent "event" bubbling in the DOM
         // and silently warn the user in case of an exception
         this.emitEvent(event);
-      } catch(e) {
+      } catch (e) {
         this.badgeUpLogger.error('BadgeUpEventListener: ' + e);
       }
     });
@@ -48,16 +47,16 @@ export class BadgeUpEventListener implements AfterContentInit {
     const eventKey = this.eventListenerSettings.getEventKey();
     const eventData = this.eventListenerSettings.getEventData();
 
-    let eventModifier = this.eventListenerSettings.getEventModifier();
-    let eventModifierValue = this.eventListenerSettings.getEventModifierValue();
+    const eventModifier = this.eventListenerSettings.getEventModifier();
+    const eventModifierValue = this.eventListenerSettings.getEventModifierValue();
 
     const constructedEvent: BadgeUpPartialEvent = {
       key: eventKey,
       data: eventData
     };
 
-    if(eventModifier) {
-      let value = parseFloat(eventModifierValue);
+    if (eventModifier) {
+      const value = parseFloat(eventModifierValue);
       if (isNaN(value)) {
         this.badgeUpLogger.warn(`BadgeUpEventListener: Unable to convert "${eventModifierValue}" to a number`);
         return; // unable to convert, bail
