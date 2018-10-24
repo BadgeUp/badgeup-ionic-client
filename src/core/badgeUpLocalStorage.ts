@@ -8,7 +8,7 @@ export class BadgeUpLocalStorage implements BadgeUpStorage {
     inMemoryStorage: {};
     localStorageSupported: boolean;
 
-    eventStorageKey: string = 'BADGEUP_EVENTSYNC';
+    readonly eventStorageKey: string = 'BADGEUP_EVENTSYNC';
 
     constructor() {
         this.localStorageSupported = !!window.localStorage;
