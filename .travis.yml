@@ -6,9 +6,7 @@ node_js:
 git:
   depth: 1
 addons:
-  apt:
-    packages:
-      - google-chrome-beta # Chrome beta for early headless support, should be removed in the future
-script: npm run test-ci
-env:
-  - CHROME_BIN=/usr/bin/google-chrome-beta
+  chrome: stable
+script: |
+  npm run lint
+  npm run test-ci

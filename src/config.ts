@@ -20,7 +20,7 @@ export interface BadgeUpSettings {
      *  - achievement:read
      *
      * in order to send events and read achievements.
-    */
+     */
     apiKey: string;
 
     /**

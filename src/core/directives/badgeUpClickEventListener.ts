@@ -1,10 +1,9 @@
-import { Directive, Injectable, Input, ElementRef } from '@angular/core';
+import { Directive, ElementRef, Injectable, Input } from '@angular/core';
 import { EventManager } from '@angular/platform-browser';
 
-import { BadgeUpEventListener } from './badgeUpEventListener';
 import { BadgeUpClient } from '../badgeUpClient';
 import { BadgeUpLogger } from '../badgeUpLogger';
-
+import { BadgeUpEventListener } from './badgeUpEventListener';
 
 @Injectable()
 @Directive({
@@ -49,7 +48,7 @@ export class BadgeUpClickEventListener extends BadgeUpEventListener {
 
     @Input('badgeUpClickEventModifier') badgeUpEventModifier: string;
     @Input('badgeUpClickEventModifierValue') badgeUpEventModifierValue: string;
-    
+
     constructor(
         elRef: ElementRef,
         badgeUpClient: BadgeUpClient,
@@ -58,7 +57,7 @@ export class BadgeUpClickEventListener extends BadgeUpEventListener {
     ) {
         super(elRef, badgeUpClient, badgeUpLogger, eventManager, {
             eventName: 'click',
-            
+
             getEventKey: () => this.badgeUpEventKey,
             getEventData: () => this.badgeUpEventData,
 

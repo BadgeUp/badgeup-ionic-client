@@ -9,6 +9,11 @@ Official Ionic client for working with [BadgeUp](https://www.badgeup.io/). This 
 npm install @badgeup/badgeup-ionic-client --save
 ```
 
+## Polyfills
+If you plan to use this client with old browsers, you will likely need to polyfill:
+* [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
+* [URLSearchParams](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams)
+
 ## Initialization
 Generate an API key for your application from [BadgeUp dashboard](https://dashboard.badgeup.io/), and configure `@badgeup\badgeup-ionic-client` by adding the BadgeUp Ionic module to the imports in `app.module.ts`.
 
@@ -114,7 +119,7 @@ If you'd like to pass dynamic data to any of the attributes, you'd have to use p
 ## Accessing the Underlying Client
 
 You may want to interact with more of the APIs than the Ionic client currently exposes as a high-level interface.
-You can access the underlying [JS client](https://github.com/BadgeUp/badgeup-node-client) from the client:
+You can access the underlying [JS client](https://github.com/badgeup/badgeup-browser-client) from the client:
 
 ```ts
 const client = this.badgeUpClient.badgeUpJSClient;

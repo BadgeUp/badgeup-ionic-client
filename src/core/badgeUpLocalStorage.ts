@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { EventRequest } from '@badgeup/badgeup-browser-client';
 import { BadgeUpStorage, BadgeUpStoredEvent } from '../declarations';
-import { EventRequest } from '@badgeup/badgeup-node-client';
 
 @Injectable()
 export class BadgeUpLocalStorage implements BadgeUpStorage {
@@ -8,7 +8,7 @@ export class BadgeUpLocalStorage implements BadgeUpStorage {
     inMemoryStorage: {};
     localStorageSupported: boolean;
 
-    eventStorageKey:string = 'BADGEUP_EVENTSYNC';
+    readonly eventStorageKey: string = 'BADGEUP_EVENTSYNC';
 
     constructor() {
         this.localStorageSupported = !!window.localStorage;
@@ -17,14 +17,14 @@ export class BadgeUpLocalStorage implements BadgeUpStorage {
     storeEvent(badgeUpEvent: EventRequest) {
 
         const id = '' + (Math.floor(Math.random() * 1e6));
-        let storedEvent: BadgeUpStoredEvent = {
-            id: id,
-            badgeUpEvent: badgeUpEvent
+        const storedEvent: BadgeUpStoredEvent = {
+            id,
+            badgeUpEvent
         };
 
-        if(this.localStorageSupported) {
-            let eventLocalStorage:any = localStorage.getItem(this.eventStorageKey);
-            if(eventLocalStorage) {
+        if (this.localStorageSupported) {
+            let eventLocalStorage: any = localStorage.getItem(this.eventStorageKey);
+            if (eventLocalStorage) {
                 eventLocalStorage = JSON.parse(eventLocalStorage);
             } else {
                 eventLocalStorage = {};
@@ -39,18 +39,18 @@ export class BadgeUpLocalStorage implements BadgeUpStorage {
 
     getEvents(): Promise<BadgeUpStoredEvent[]> {
         let eventStorage = this.inMemoryStorage;
-        let badgeUpEvents: BadgeUpStoredEvent[] = [];
-        if(this.localStorageSupported) {
-            let eventLocalStorage = localStorage.getItem(this.eventStorageKey);
-            if(eventLocalStorage) {
+        const badgeUpEvents: BadgeUpStoredEvent[] = [];
+        if (this.localStorageSupported) {
+            const eventLocalStorage = localStorage.getItem(this.eventStorageKey);
+            if (eventLocalStorage) {
                 eventStorage = JSON.parse(eventLocalStorage);
             } else {
                 eventStorage = {};
             }
         }
 
-        for(let key in eventStorage) {
-            if(eventStorage.hasOwnProperty(key)) {
+        for (const key in eventStorage) {
+            if (eventStorage.hasOwnProperty(key)) {
                 badgeUpEvents.push(eventStorage[key]);
             }
         }
@@ -59,18 +59,18 @@ export class BadgeUpLocalStorage implements BadgeUpStorage {
     }
 
     removeEvents(badgeUpEvents: BadgeUpStoredEvent[]) {
-        if(this.localStorageSupported) {
+        if (this.localStorageSupported) {
             let eventLocalStorage = localStorage.getItem(this.eventStorageKey);
-            if(eventLocalStorage) {
+            if (eventLocalStorage) {
                 eventLocalStorage = JSON.parse(eventLocalStorage);
-                for (let event of badgeUpEvents) {
+                for (const event of badgeUpEvents) {
                     delete eventLocalStorage[event.id];
                 }
 
                 localStorage.setItem(this.eventStorageKey, JSON.stringify(eventLocalStorage));
             }
         } else {
-            for (let event of badgeUpEvents) {
+            for (const event of badgeUpEvents) {
                 delete this.inMemoryStorage[event.id];
             }
         }
