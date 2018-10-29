@@ -7,9 +7,6 @@ git:
   depth: 1
 addons:
   chrome: stable
-jobs:
-  include:
-    - stage: lint
-      script: npm run lint
-    - stage: test
-      script: npm run test-ci
+script: |
+  npm run lint
+  npm run test-ci
