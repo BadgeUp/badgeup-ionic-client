@@ -88,31 +88,31 @@ export class MyApp implements OnDestroy {
 
 ##### badgeup-click-event
 If you want to send events to BadgeUp when a user clicks a button, add a `badgeup-click-event` directive that has an event key as value.
-For example, if you want to track users who press a button by firing an event to BadgeUp using the event key "game:refresh", you would use the following code:
+For example, if you want to track list refreshes as event key "list:refresh", you would use the following code:
 
 ```html
-<button badgeUpClickEvent="game:refresh">Refresh the game</button>
+<button badgeUpClickEvent="list:refresh">Refresh the list</button>
 ```
 
 You can also easily pass data using the badgeUpClickEventData attribute:
 
 ```html
-<button badgeUpClickEvent="game:refresh"
-        badgeUpClickEventData="{foo: true}">Refresh the game</button>
+<button badgeUpClickEvent="list:refresh"
+        badgeUpClickEventData="{foo: true}">Refresh the list</button>
 ```
 
-You can also provide your own event modifier. The following code would decrement the value by one when you click 'Refresh the game'.
+You can also provide your own event modifier. The following code would decrement the value by one when you click 'Refresh the list'.
 ```html
-<button badgeUpClickEvent="game:refresh"
+<button badgeUpClickEvent="list:refresh"
         badgeUpClickEventModifier="@dec"
-        badgeUpClickEventModifierValue="1">Refresh the game</button>
+        badgeUpClickEventModifierValue="1">Refresh the list</button>
 ```
 
 If you'd like to pass dynamic data to any of the attributes, you'd have to use property binding syntax. Just add square brackets:
 ```html
-<button badgeUpClickEvent="game:refresh"
+<button badgeUpClickEvent="list:refresh"
         [badgeUpClickEventData]="{userRank: getUserRank()}">
-        Refresh the game
+        Refresh the list
 </button>
 ```
 

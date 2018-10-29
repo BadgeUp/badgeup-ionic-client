@@ -10,35 +10,34 @@ import { BadgeUpEventListener } from './badgeUpEventListener';
   selector: '[badgeUpClickEvent]'
 })
 /**
- * The `BadgeUpClickEvent` directive can be used in HTML in order to create new events
- * if user clicks buttons or other objects.
+ * The `BadgeUpClickEvent` directive can be used in HTML to create new events, such as user interaction events.
  *
  * If you want to send event to BadgeUp when someone clicks a button, add badgeup-click-event directive that has an event key as value.
- * For example, if you want to track people who press button and fire an event to BadgeUp servers that has event key "game:refresh", you would use the following code:
+ * For example, if you want to track list refreshes as event key "list:refresh", you would use the following code:
  *
  * ```html
- * <button badgeUpClickEvent="game:refresh">Refresh the game</button>
+ * <button badgeUpClickEvent="list:refresh">Refresh the list</button>
  * ```
  *
  * You can also easily pass data using the badgeUpClickEventData attribute:
  *
  * ```html
- * <button badgeUpClickEvent="game:refresh"
- *        badgeUpClickEventData="my custom data">Refresh the game</button>
+ * <button badgeUpClickEvent="list:refresh"
+ *        badgeUpClickEventData="my custom data">Refresh the list</button>
  * ```
  *
- * You can also provide your own event modifier. The following code would decrement the value by one when you click 'Refresh the game'.
+ * You can also provide your own event modifier. The following code would decrement the value by one when you click 'Refresh the list'.
  * ```html
- * <button badgeUpClickEvent="game:refresh"
+ * <button badgeUpClickEvent="list:refresh"
  *        badgeUpClickEventModifier="@dec"
- *        badgeUpClickEventModifierValue="1">Refresh the game</button>
+ *        badgeUpClickEventModifierValue="1">Refresh the list</button>
  * ```
  *
  * If you'd like to pass dynamic data to any of the attributes, you'd have to use property binding syntax. Just add square brackets:
  * ```html
- * <button badgeUpClickEvent="game:refresh"
+ * <button badgeUpClickEvent="list:refresh"
  *        [badgeUpClickEventData]="{isFemale: isUserFemale()}">
- *        Refresh the game
+ *        Refresh the list
  * </button>
  * ```
  */
