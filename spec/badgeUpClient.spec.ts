@@ -1,4 +1,4 @@
-import { Achievement, BadgeUp as JSClient, EventResults } from '@badgeup/badgeup-node-client';
+import { Achievement, BadgeUp as JSClient, EventResults } from '@badgeup/badgeup-browser-client';
 import {} from 'jasmine';
 import { BadgeUpSettings } from '../src/config';
 import { BadgeUpClient } from '../src/core/badgeUpClient';

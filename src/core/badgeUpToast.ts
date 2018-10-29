@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import get from 'lodash.get';
 
-import { Achievement } from '@badgeup/badgeup-node-client';
+import { Achievement } from '@badgeup/badgeup-browser-client';
 import badgeUpLogoBase64 from 'base64-image-loader!../assets/badgeup-logo.png';
 import $iziToast from '../plugins/iziToast/iziToast';
 

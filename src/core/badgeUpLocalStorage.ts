@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EventRequest } from '@badgeup/badgeup-node-client';
+import { EventRequest } from '@badgeup/badgeup-browser-client';
 import { BadgeUpStorage, BadgeUpStoredEvent } from '../declarations';
 
 @Injectable()

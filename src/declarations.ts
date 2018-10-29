@@ -1,5 +1,5 @@
 import { InjectionToken } from '@angular/core';
-import { Achievement, EventModifier, EventRequest as BadgeUpEvent } from '@badgeup/badgeup-node-client';
+import { Achievement, EventModifier, EventRequest as BadgeUpEvent } from '@badgeup/badgeup-browser-client';
 
 export const BADGEUP_STORAGE = new InjectionToken('BADGEUP_STORAGE');
 

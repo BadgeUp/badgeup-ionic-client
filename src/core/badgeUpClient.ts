@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { BADGEUP_JS_CLIENT, BADGEUP_SETTINGS, BadgeUpSettings } from '../config';
 import { BADGEUP_STORAGE, BadgeUpEarnedAchievement, BadgeUpNotificationType, BadgeUpPartialEvent, BadgeUpStorage } from '../declarations';
 
-import { Achievement, BadgeUp as BadgeUpJSClient, EventProgress, EventRequest, EventResult } from '@badgeup/badgeup-node-client';
+import { Achievement, BadgeUp as BadgeUpJSClient, EventProgress, EventRequest, EventResult } from '@badgeup/badgeup-browser-client';
 import { BadgeUpLogger } from './badgeUpLogger';
 import { BadgeUpToast } from './badgeUpToast';
 

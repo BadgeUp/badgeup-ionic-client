@@ -119,7 +119,7 @@ If you'd like to pass dynamic data to any of the attributes, you'd have to use p
 ## Accessing the Underlying Client
 
 You may want to interact with more of the APIs than the Ionic client currently exposes as a high-level interface.
-You can access the underlying [JS client](https://github.com/BadgeUp/badgeup-node-client) from the client:
+You can access the underlying [JS client](https://github.com/badgeup/badgeup-browser-client) from the client:
 
 ```ts
 const client = this.badgeUpClient.badgeUpJSClient;

@@ -23,8 +23,8 @@ import { BADGEUP_FORROOT_GUARD, BADGEUP_JS_CLIENT, BADGEUP_SETTINGS, BadgeUpSett
 import { BadgeUpLocalStorage } from './core/badgeUpLocalStorage';
 import { BADGEUP_STORAGE } from './declarations';
 
-import { BadgeUp } from '@badgeup/badgeup-node-client';
-export { Event as BadgeUpEvent } from '@badgeup/badgeup-node-client';
+import { BadgeUp } from '@badgeup/badgeup-browser-client';
+export { Event as BadgeUpEvent } from '@badgeup/badgeup-browser-client';
 
 export { BadgeUpClient } from './core/badgeUpClient';
 export { BadgeUpSettings } from './config';
