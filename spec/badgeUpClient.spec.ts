@@ -1,10 +1,11 @@
-import { BadgeUpClient } from '../src/core/badgeUpClient';
-import { BadgeUp as JSClient, Achievement } from '@badgeup/badgeup-node-client';
+import { Achievement, BadgeUp as JSClient, EventResults } from '@badgeup/badgeup-node-client';
+import {} from 'jasmine';
 import { BadgeUpSettings } from '../src/config';
-import { BadgeUpStorage, BadgeUpEarnedAchievement, BadgeUpNotificationType } from '../src/declarations';
+import { BadgeUpClient } from '../src/core/badgeUpClient';
+import { BadgeUpLocalStorage } from '../src/core/badgeUpLocalStorage';
 import { BadgeUpLogger } from '../src/core/badgeUpLogger';
 import { BadgeUpToast } from '../src/core/badgeUpToast';
-import { BadgeUpLocalStorage } from '../src/core/badgeUpLocalStorage';
+import { BadgeUpEarnedAchievement, BadgeUpNotificationType, BadgeUpStorage } from '../src/declarations';
 
 import * as sinon from 'sinon';
 
@@ -14,13 +15,13 @@ const APPLICATION_ID = '1337';
 
 describe('BadgeUpClient', () => {
 
-    let mockToast: BadgeUpToast = {
-        showNewAchievementEarned: (badgeUpEarnedAchievement: Achievement) => { }
+    const mockToast: BadgeUpToast = {
+        showNewAchievementEarned: (badgeUpEarnedAchievement: Achievement) => { /* do nothing */ }
     };
 
-    let mockLogger: BadgeUpLogger = {
-        warn: message => { },
-        error: message => { }
+    const mockLogger: BadgeUpLogger = {
+        warn: (message) => { /* do nothing */ },
+        error: (message) => { /* do nothing */ }
     };
 
     const mockSettings: BadgeUpSettings = { apiKey: API_KEY };
@@ -32,23 +33,34 @@ describe('BadgeUpClient', () => {
         const achievementId = '10';
         const earnedAchievementId = '20';
 
+        const eventResults: EventResults = {
+            results: [
+                {
+                    event: null,
+                    cause: 'x',
+                    progress: [
+                        {
+                            isNew: true,
+                            isComplete: true,
+                            percentComplete: 1,
+                            progressTree: null,
+                            achievementId,
+                            earnedAchievementId
+                        }
+                    ]
+                }
+            ]
+        };
+
         // events
-        const eventCreateStub = sinon.stub(jsClient.events, "create");
-        eventCreateStub.onFirstCall().returns(Promise.resolve({
-            progress: [{
-                // return a new, complete achievement
-                isComplete: true,
-                isNew: true,
-                achievementId,
-                earnedAchievementId
-            }]
-        }));
+        const eventCreateStub = sinon.stub(jsClient.events, 'create');
+        eventCreateStub.onFirstCall().returns(Promise.resolve(eventResults));
 
         // achievements
-        const achievementGetStub = sinon.stub(jsClient.achievements, "get");
+        const achievementGetStub = sinon.stub(jsClient.achievements, 'get');
         achievementGetStub.onFirstCall().returns(Promise.resolve({
             applicationId: APPLICATION_ID,
-            achievementId: achievementId,
+            achievementId,
             name: 'test-achievement',
             description: 'test achievement used for testing'
         }));
@@ -75,7 +87,7 @@ describe('BadgeUpClient', () => {
             });
 
             if (notificationType === BadgeUpNotificationType.NewAchievementEarned) {
-                let ea: BadgeUpEarnedAchievement = <BadgeUpEarnedAchievement>data;
+                const ea: BadgeUpEarnedAchievement = data;
                 expect(ea.earnedAchievementId).toBe(earnedAchievementId);
                 done();
             }
@@ -86,10 +98,9 @@ describe('BadgeUpClient', () => {
         });
     });
 
-
     describe('browser client', () => {
         it('should expose the underlying browser client', () => {
-            let badgeUpClient = new BadgeUpClient(
+            const badgeUpClient = new BadgeUpClient(
                 mockLogger,
                 mockToast,
                 mockSettings,

@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { BADGEUP_JS_CLIENT, BADGEUP_SETTINGS, BadgeUpSettings } from '../config';
 import { BADGEUP_STORAGE, BadgeUpEarnedAchievement, BadgeUpNotificationType, BadgeUpPartialEvent, BadgeUpStorage } from '../declarations';
 
-import { Achievement, BadgeUp as BadgeUpJSClient, EventProgress, EventRequest } from '@badgeup/badgeup-node-client';
+import { Achievement, BadgeUp as BadgeUpJSClient, EventProgress, EventRequest, EventResult } from '@badgeup/badgeup-node-client';
 import { BadgeUpLogger } from './badgeUpLogger';
 import { BadgeUpToast } from './badgeUpToast';
 
@@ -188,8 +188,13 @@ export class BadgeUpClient {
                 // remove from storage
                 this.badgeUpStorage.removeEvents([se]);
 
+                const progress: EventProgress[] = response.results.reduce(function(p: EventProgress[], c: EventResult) {
+                    p.push(...c.progress);
+                    return p;
+                }, []);
+
                 // trigger actions to take based on progress
-                this.progressHandler(response.progress);
+                this.progressHandler(progress);
             } catch (err) {
                 // TODO: on 400 response code, discard event
                 this.badgeUpLogger.error(err);

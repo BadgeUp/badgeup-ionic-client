@@ -9,8 +9,7 @@
     "declaration": true,
     "moduleResolution": "node",
     "types": [
-      "node",
-      "jasmine"
+      "node"
     ],
     "lib": ["es2017", "dom"],
     "outDir": "dist"
