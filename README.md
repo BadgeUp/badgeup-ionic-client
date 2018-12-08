@@ -1,5 +1,5 @@
 # BadgeUp Ionic Client
-Official Ionic client for working with [BadgeUp](https://www.badgeup.io/). This client supports Ionic 3.
+Official Ionic client for working with [BadgeUp](https://www.badgeup.io/). This client supports Ionic 3 running Angular 6. Angular 5 is not supported.
 
 [![Build Status](https://travis-ci.org/BadgeUp/badgeup-ionic-client.svg?branch=master)](https://travis-ci.org/BadgeUp/badgeup-ionic-client)
 
@@ -31,7 +31,6 @@ import {BadgeUpModule} from '@badgeup/badgeup-ionic-client';
 
   ...
 })
-
 ```
 
 Once the module has been registered, inject the service in the root component and configure the subject provider.
@@ -59,13 +58,11 @@ export class MyApp implements OnDestroy {
       splashScreen.hide();
     });
 
-    badgeUpClient.setSubjectProvider((eventKey: string) => {
-      return "chris@test.com";
-    });
+    badgeUpClient.setSubject('mark'); // in production this would be some sort of ID or UUID
 
     badgeUpClient.subscribe(this.badgeUpNotificationCallback);
     badgeUpClient.emit({
-      key: "amazing"
+      key: "user:action"
     });
   }
 
@@ -83,6 +80,62 @@ export class MyApp implements OnDestroy {
 ```
 
 :warning: Don't forget to unsubscribe in `ngOnDestroy()` as not doing that will cause a memory leak.
+
+## About this Repo
+This repository contains a minimal demo application and the module that is published to npm.
+
+The module codebase can be found in [src/shared/modules/badgeup-client](src/shared/modules/badgeup-client).
+
+## Components
+
+### Overview
+The overview component contains three main components - most recent achievement, next up, and up to three upcoming achievements. Depending on the section, 'view details' may be clicked on and will expand with criteria and award details.
+
+#### Example: Overview Page as a Page
+
+```html
+<ion-content>
+  <overview></overview>
+
+  <div col-12 class="all-earned">
+    <button ion-button (click)="goToAllEarnedComponent()">See All Earned</button>
+  </div>
+</ion-content>
+```
+
+![alt text](readme-images/overview.png "Overview")
+
+### All Earned
+Displays unredeemed, earned awards and earned achievements by date.
+
+#### Example: Opening Earned Component as a Modal
+
+```js
+import { Component } from '@angular/core';
+import { ModalController } from 'ionic-angular';
+
+import { AllEarnedComponent } from '@badgeup/badgeup-ionic-client';
+
+@Component({
+  selector: 'page-earned',
+  templateUrl: 'earned.html'
+})
+export class EarnedPage {
+  constructor(private modalCtrl: ModalController) { }
+
+  public open() {
+    const modalPage = this.modalCtrl.create(AllEarnedComponent);
+    modalPage.present();
+  }
+}
+```
+
+![alt text](readme-images/all-earned.png "All Earned")
+
+### Earned Achievement Popup
+This component is provided as part of the module but is not intended to be directly invoked by developers. The module will usually handle invoking this popup directly.
+
+![alt text](readme-images/achievement-earned.png "Achievement Earned Popup")
 
 ## Directives
 
@@ -116,7 +169,7 @@ If you'd like to pass dynamic data to any of the attributes, you'd have to use p
 </button>
 ```
 
-## Accessing the Underlying Client
+## Accessing the Underlying JS Client
 
 You may want to interact with more of the APIs than the Ionic client currently exposes as a high-level interface.
 You can access the underlying [JS client](https://github.com/badgeup/badgeup-browser-client) from the client:

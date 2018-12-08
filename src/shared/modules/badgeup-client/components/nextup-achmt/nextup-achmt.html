@@ -1,0 +1,29 @@
+<ng-container *ngIf="(nextUpObs | async) as nextUp; else loading">
+    <div *ngIf="nextUp.length === 1; else empty">
+        <h2 class="section-name">Next Up</h2>
+        <icon-progress
+            [achievement]="nextUp[0].achievement"
+            [percentComplete]="nextUp[0]?.progress?.percentComplete"
+            [showPercentage]="false"
+        ></icon-progress>
+        <h3 class="achievement-name">{{nextUp[0].achievement.name}}</h3>
+        <p class="description">{{nextUp[0].achievement?.description}}</p>
+
+        <span class="link" *ngIf="!showDetails" (click)="showDetails = true">view details</span>
+
+        <criteria-progress-tree
+            *ngIf="showDetails"
+            [criteria]="nextUp[0].achievement.resources.criteria"
+            [progress]="nextUp[0].progress.progressTree"
+        >
+        </criteria-progress-tree>
+    </div>
+
+    <ng-template #empty>
+        <!-- TODO empty placeholder -->
+        <div>You've got nothing left to earn!</div>
+    </ng-template>
+</ng-container>
+<ng-template #loading>
+    <preloader></preloader>
+</ng-template>

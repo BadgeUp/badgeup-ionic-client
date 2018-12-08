@@ -1,0 +1,9 @@
+<div class="group" *ngFor="let cp of critProgress">
+    <div class="name">{{cp.name}} - <span class="percent-text">{{cp.percentage}}%</span></div>
+    <div *ngIf="cp.description" class="description">{{cp.description}}</div>
+
+    <criteria-progress-tree-element
+        [percentComplete]="cp.percentage"
+    >
+    </criteria-progress-tree-element>
+</div>

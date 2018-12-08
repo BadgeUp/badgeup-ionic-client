@@ -1,0 +1,15 @@
+<ng-container *ngIf="awards?.length > 0; else empty">
+    <ion-grid>
+        <ion-row>
+            <ion-col col-6 class="award award-group" *ngFor="let container of awards">
+                <div class="award award-name">{{container.award.name}}</div>
+                <div class="award award-description">{{container.award.description}}</div>
+                <div class="award award-redeemed" *ngIf="container.earnedAward?.state === 'redeemed'">redeemed</div>
+                <div class="award award-not-redeemed" *ngIf="container.earnedAward?.state !== 'redeemed'">not redeemed</div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ng-container>
+<ng-template #empty>
+    <div class="no-awards">No awards to redeem.</div>
+</ng-template>

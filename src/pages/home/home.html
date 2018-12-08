@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      BadgeUp Ionic Client Demo
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <h1>Demo App</h1>
+    <p>Try opening the overview. In your app, you'll have buttons or other elements trigger the overview.</p>
+    <button ion-button block (click)="openOverlay()">Open Achievement Overview</button>
+
+    <p>This button sends an event that may earn an achievement. When an achievement is earned, a popup is presented.</p>
+    <button ion-button block (click)="sendEvent()">Send Event</button>
+</ion-content>

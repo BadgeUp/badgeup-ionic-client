@@ -1,0 +1,25 @@
+<div *ngIf="(upcomingObs | async) as upcoming; else loading">
+    <div *ngIf="upcoming.length > 0; else empty">
+        <h2 class="section-name">Next Upcoming</h2>
+        <ion-grid>
+            <ion-row>
+                <ion-col col-4 *ngFor="let u of upcoming" class="upcoming-achmt-list-item">
+                    <icon-progress
+                        [achievement]="u?.achievement"
+                        [percentComplete]="u?.progress?.percentComplete"
+                        [size]="'small'"
+                    ></icon-progress>
+                    <p class="achievement-name">{{u?.achievement.name}}</p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+
+    <ng-template #empty>
+        <!-- TODO empty placeholder -->
+        <div>No upcoming achievements</div>
+    </ng-template>
+</div>
+<ng-template #loading>
+    <preloader></preloader>
+</ng-template>

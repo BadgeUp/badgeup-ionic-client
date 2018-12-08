@@ -1,0 +1,40 @@
+{
+  "name": "@badgeup/badgeup-ionic-client",
+  "description": "BadgeUp Ionic achievement UI components",
+  "version": "1.0.0-alpha.1",
+  "author": "Mark Herhold <mark@badgeup.io>",
+  "homepage": "https://www.badgeup.io/",
+  "main": "badgeup-ionic-client.js",
+  "typings": "badgeup-ionic-client.d.ts",
+  "scripts": {
+    "package-module": "npm run clean-module && npm run copy-module && npm run build-module && npm run pack-module",
+    "clean-module": "rm -rf dist",
+    "copy-module": "rsync -a ./ dist/ --exclude=node_modules",
+    "build-module": "ngc --project dist/tsconfig.json --outDir dist",
+    "pack-module": "cd dist && npm pack && cd -"
+  },
+  "config": {
+    "ionic_bundler": "webpack",
+    "ionic_source_map": "source-map",
+    "ionic_copy": "./copy.config.js"
+  },
+  "dependencies": {
+    "@badgeup/badgeup-browser-client": "2.0.5",
+    "date-fns": "2.0.0-alpha.25",
+    "lodash.get": "^4.4.2",
+    "p-map": "2.0.0",
+    "quick-lru": "2.0.0",
+    "shifty": "2.6.1"
+  },
+  "peerDependencies": {
+    "ionic-angular": "*",
+    "@angular/core": "*"
+  },
+  "devDependencies": {
+    "@angular/compiler": "6.1.10",
+    "@angular/compiler-cli": "6.1.10",
+    "@types/p-map": "1.1.0",
+    "@types/quick-lru": "1.1.0",
+    "typescript": "2.7.2"
+  }
+}

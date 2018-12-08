@@ -1,0 +1,40 @@
+<div *ngIf="(mostRecentObs | async) as mostRecent; else loading">
+    <ng-container *ngIf="mostRecent.length === 1; else empty">
+        <h2 class="section-name">Most Recent Achievement</h2>
+        <div>
+            <div class="badgeup-icon-progress badgeup-icon-progress--size-big">
+                <div
+                    *ngIf="(icon$ | async)"
+                    class="badgeup-icon-progress__inner"
+                    [ngStyle]="{'background-image': 'url(' + (icon$ | async) + ')'}"
+                >
+                </div>
+                <svg class="blue-spin" viewBox="0 0 239 135" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M119 121.542C149.123 121.542 173.542 97.1226 173.542 67C173.542 36.8774 149.123 12.4583 119 12.4583C88.8775 12.4583 64.4583 36.8774 64.4583 67C64.4583 97.1226 88.8775 121.542 119 121.542ZM119 126.5C151.861 126.5 178.5 99.8609 178.5 67C178.5 34.139 151.861 7.5 119 7.5C86.1391 7.5 59.5 34.139 59.5 67C59.5 99.8609 86.1391 126.5 119 126.5Z" fill="#02B0FF"></path>
+                    <path d="M229.404 59.9074L232.168 66.7527L239.52 67.2703L233.875 72.0186L235.656 79.184L229.404 75.2731L223.152 79.184L224.933 72.0186L219.289 67.2703L226.641 66.7527L229.404 59.9074Z" fill="#02B0FF"></path>
+                    <path d="M10.6348 59.9074L13.398 66.7528L20.7501 67.2703L15.1057 72.0186L16.8863 79.184L10.6348 75.2731L4.38322 79.184L6.16385 72.0186L0.519531 67.2703L7.87161 66.7528L10.6348 59.9074Z" fill="#02B0FF"></path>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M49.2753 70.7656C48.8428 33.5642 77.8031 2.32665 115.227 0.352173C79.6027 4.12068 51.8259 34.9639 52.1747 70.6127L49.2753 70.7656Z" fill="#02B0FF"></path>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M192.249 63.9101C193.265 101.1 164.797 132.789 127.408 135.352C162.97 131.024 190.26 99.7475 189.352 64.1087L192.249 63.9101Z" fill="#02B0FF"></path>
+                </svg>
+            </div>
+        </div>
+        <h4 class="achievement-name">{{mostRecent[0].achievement.name}}</h4>
+        <p class="description">{{mostRecent[0].achievement?.description}}</p>
+
+        <span class="link" *ngIf="!showDetails" (click)="showDetails = true">view details</span>
+
+        <recent-achmt-details
+            *ngIf="showDetails"
+            [recent]="mostRecent[0]"
+        >
+        </recent-achmt-details>
+    </ng-container>
+
+    <ng-template #empty>
+        <!-- TODO empty placeholder -->
+        <div>No achievements earned yet</div>
+    </ng-template>
+</div>
+<ng-template #loading>
+    <preloader></preloader>
+</ng-template>

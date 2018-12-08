@@ -1,0 +1,110 @@
+@import '../../scss/nestings';
+
+.badgeup-icon-progress {
+    position: relative;
+
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 68px;
+    height: 68px;
+
+    margin-bottom: 12px;
+
+    transition: transform 0.3s;
+    transform-origin: 50% 50%;
+
+    &--size-small {
+        margin-bottom: 32px;
+    }
+
+    &--percentage-hidden {
+        margin-bottom: 0;
+    }
+
+    &--size-big {
+        height: 135px;
+        width: 100%;
+    }
+
+    &--size-small {
+        width: 48px;
+        height: 48px;
+
+        border-radius: 100%;
+    }
+
+    .open > & {
+        transform: scale(1.2);
+    }
+
+    &__inner {
+        position: absolute;
+        z-index: 1;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        height: 72.08%;
+        width: 72.08%;
+
+        border-radius: 100%;
+
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    &__circle {
+        position: relative;
+
+        height: 100%;
+
+        & svg {
+            height: 100%;
+            animation: pull-in 0.3s linear;
+        }
+    }
+
+    &__text {
+        padding-left: 5px;
+
+        font-size: 18px;
+        font-weight: 700;
+        color: $green;
+        white-space: nowrap;
+
+        &:after {
+            display: inline-block;
+            content:' %';
+        }
+
+        &--position-right {
+            position: absolute;
+            z-index: 10;
+            left: calc(100% + 10px);
+            top: calc(50% - 12px);
+        }
+    }
+
+    &__img {
+        display: block;
+        border-radius: 100%;
+        overflow: hidden;
+        max-height: calc(100% - 1px);
+
+        &--shadow-red {
+            box-shadow: 0 0 0 6px white, 0 0 0 10px $red;
+        }
+
+        &--shadow-yellow {
+            box-shadow: 0 0 0 6px white, 0 0 0 10px $yellow;
+        }
+
+        &--shadow-green {
+            box-shadow: 0 0 0 6px white, 0 0 0 10px $cold-green;
+        }
+    }
+}

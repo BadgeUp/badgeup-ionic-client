@@ -1,0 +1,43 @@
+@import '../../scss/nestings';
+
+earned-achievement-details {
+    div, span, h1, h2, h3, h4, h5, p {
+        @include reset-box-model;
+        @include reset-font;
+    }
+    width: 90%;
+    margin: auto;
+
+    .achmt-details-content {
+        width: 100%;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        margin-top: 5px;
+        border-top: .55px solid $blue;
+        border-bottom: .55px solid $blue;
+    }
+
+    .achmt__title {
+        @include font-weight('normal');
+        @include heading-4;
+        color: $blue;
+        font-size: 16px;
+        transition: color 0.5s;
+    }
+
+    .achmt__description {
+        @include font-weight('light');
+        @include heading-5;
+        margin-bottom: 5px;
+        margin-top: 5px;
+        font-size: 14px;
+    }
+
+    .achmt__time-ago {
+        @include font-weight('light');
+        @include heading-6;
+        font-size: 12px;
+        color: $gray;
+    }
+}

@@ -1,0 +1,12 @@
+@import '../../../scss/nestings';
+
+criteria-progress-tree-element {
+    .progress-bar  {
+        .background {
+            stroke: $gray-lighten;
+        }
+        .foreground {
+            stroke: $green;
+        }
+    }
+}

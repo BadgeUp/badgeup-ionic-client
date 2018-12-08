@@ -1,0 +1,35 @@
+@import '../../scss/nestings';
+
+criteria-progress-tree {
+    text-align: center;
+
+    .group {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+        border-color: lighten($blue, 20%);
+        border-style: solid;
+        border-radius: 5px;
+        border-width: 1px;
+        padding: .5em;
+        min-width: 70%;
+        max-width: 30em;
+        display: inline-block;
+    }
+
+    .percent-text {
+        color: $blue;
+    }
+
+    .name {
+        @include font-weight('bold');
+        @include heading-5;
+        color: $gray-dark;
+    }
+
+    .description {
+        @include font-weight('medium');
+        @include heading-6;
+        margin-bottom: 1em;
+        color: $gray-lighten;
+    }
+}

@@ -1,0 +1,87 @@
+@import '../../scss/nestings';
+
+all-earned {
+    div,span,h1,h2,h3,h4,h5,p {
+        @include reset-box-model;
+        @include reset-font;
+    }
+
+    background-color: $white;
+    text-align: center;
+
+    .achmt-item {
+        cursor: pointer;
+
+        &::after {
+            position: absolute;
+            display: block;
+            content: '';
+            z-index: 12;
+            top: 100%;
+            width: 10px;
+            height: 10px;
+            background-color: $white;
+            border-left: 1px solid;
+            border-top: 1px solid;
+            margin: auto;
+            left: 0;
+            right: 0;
+            opacity: 0;
+            transform: rotate(45deg);
+            transition: border-color 0.5s, opacity 0.5s, left 0.5s;
+        }
+    }
+
+    .achmt-activated::after {
+        opacity: 1;
+        visibility: visible;
+        border-left-color: $blue;
+        border-top-color: $blue;
+    }
+
+    // interestingly enough this is very important
+    icon-progress {
+        pointer-events: none;
+    }
+
+    .scroll-wrapper,
+    .section {
+        margin-top: 2em;
+        margin-bottom: 2em;
+    }
+
+    .section-name {
+        @include font-weight('medium');
+        @include heading-4;
+        color: $gray-dark;
+        margin-bottom: .5em;
+        min-height: 2em;
+    }
+
+    .centered-spinner {
+        display: flex;
+        justify-content: center;
+    }
+
+    .number-earned {
+        margin-bottom: 1em;
+        font-size: 1em;
+        font-weight: 500;
+        color: $gray-lighten;
+        text-align: center;
+    }
+
+    .none-earned {
+        margin: 3em 0 3em 0;
+        font-size: 1em;
+        font-weight: 500;
+        color: $gray-lighten;
+        text-align: center;
+    }
+
+    .achievement-name {
+        @include font-weight('light');
+        @include heading-5;
+        margin: 0 12px;
+    }
+}

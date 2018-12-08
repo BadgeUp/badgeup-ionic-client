@@ -1,0 +1,43 @@
+@import '../../scss/nestings';
+
+nextup-achmt {
+    div, span, h1, h2, h3, h4, h5, p {
+        @include reset-box-model;
+        @include reset-font;
+    }
+
+    // TODO dedupe
+    text-align: center;
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 1em;
+
+    // TODO dedupe
+    .section-name {
+        @include font-weight('medium');
+        @include heading-4;
+        color: $gray-dark;
+        margin-bottom: .5em;
+        min-height: 2em;
+    }
+
+    // TODO dedupe
+    .achievement-name {
+        @include font-weight('bold');
+        @include heading-3;
+        margin-top: .5em;
+        color: $gray-dark;
+    }
+
+    // TODO dedupe
+    .description {
+        @include font-weight('medium');
+        font-size: 14px;
+        margin-bottom: 1em;
+        color: $gray-lighten;
+    }
+
+    .link {
+        @include link;
+    }
+}

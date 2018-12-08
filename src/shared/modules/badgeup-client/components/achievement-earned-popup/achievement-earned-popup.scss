@@ -1,0 +1,174 @@
+@import '../../scss/nestings';
+
+$color-candy: #F12049;
+
+achievement-earned-popup {
+    @import "../../scss/globals/animations";
+
+    div, span, h1, h2, h3, h4, h5, p {
+      @include reset-box-model;
+      @include reset-font;
+    }
+
+    background-color: white;
+    text-align: center;
+
+    .title {
+        @include font-weight('bold');
+        @include heading-3;
+    }
+
+    .slide-in-blurred-bottom {
+        animation: slide-in-blurred-bottom 0.5s cubic-bezier(0.23, 1, 0.32, 1) both;
+    }
+
+    .scale {
+        animation: scale 0.8s cubic-bezier(0.23, 1, 0.32, 1) both;
+    }
+
+    .space {
+        padding-top: 1.5em;
+        padding-bottom: 1.5em;
+    }
+
+    .space-top {
+        padding-top: 1.5em;
+    }
+
+    .slide-top {
+        animation: slide_top 0.8s cubic-bezier(0.23, 1, 0.32, 1) both;
+        animation-delay: 0.35s;
+    }
+
+    .acknowledge {
+        animation-delay: 2s;
+    }
+
+    .icon {
+
+        *, :after, &:before {
+            box-sizing: border-box;
+        }
+
+        &__icon-area {
+            position: relative;
+        }
+
+        &__shapes {
+            display: flex;
+            justify-content: center;
+
+            animation-delay: 0.35s;
+
+            & > * {
+                flex-shrink: 0;
+            }
+        }
+
+        &__background {
+            position: relative;
+            border-radius: 100%;
+            animation-delay: 0.1s;
+        }
+
+        &__icon {
+            width: 100px;
+            height: 100px;
+            background-repeat: no-repeat;
+            background-position: center;
+
+            // ring
+            &:after {
+                @include pseudo-elem;
+                position: absolute;
+                z-index: 1;
+                top: -7px;
+                left: -7px;
+
+                width: 114px;
+                height: 114px;
+
+                border-radius: 100%;
+                border: 4px solid $color-candy;
+
+                animation: pulse 0.4s linear;
+            }
+
+            &--absolute-center {
+                position: absolute;
+                top: calc(50% - 50px);
+                left: calc(50% - 50px);
+            }
+
+            &--color-candy {
+                background: linear-gradient(135deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0) 100%), $color-candy;
+                box-shadow: 0px 23px 18px rgba(241, 32, 73, 0.29);
+            }
+        }
+    }
+
+    .achievement {
+        &__title-area {
+            margin-bottom: 10px;
+
+            & > :first-child {
+                animation-delay: 1.15s;
+            }
+
+            & > :last-child {
+                animation-delay: 1.45s;
+            }
+        }
+
+        &__name {
+            @include font-weight('bold');
+            @include heading-3;
+            margin-top: 2em;
+            margin-bottom: .25em;
+        }
+
+        &__description {
+            font-weight: bold;
+            margin-top: 4px;
+            font-size: 14px;
+            color: $gray;
+        }
+    }
+
+    // awards
+    .awards {
+        margin-left: auto;
+        margin-right: auto;
+
+        font-size: 12px;
+
+        &__list {
+            &.slide-top {
+                animation-delay: 2s;
+            }
+
+            font-weight: bold;
+        }
+
+        &__item {
+            display: flex;
+
+            &:before {
+                display: inline-block;
+                content: '';
+
+                width: 20px;
+                height: 20px;
+
+                // consider moving to star.svg
+                background-image: url("data:image/svg+xml,%3Csvg width='8' height='9' viewBox='0 0 8 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.61958 1.17082C3.73932 0.802296 4.26068 0.802296 4.38042 1.17082L5.03276 3.17852C5.08631 3.34333 5.2399 3.45492 5.41319 3.45492H7.52421C7.9117 3.45492 8.07281 3.95076 7.75932 4.17852L6.05147 5.41935C5.91128 5.52121 5.85261 5.70175 5.90616 5.86656L6.5585 7.87427C6.67824 8.24279 6.25645 8.54924 5.94297 8.32148L4.23511 7.08065C4.09492 6.97879 3.90508 6.97879 3.76489 7.08065L2.05703 8.32148C1.74355 8.54924 1.32176 8.24279 1.4415 7.87426L2.09384 5.86656C2.14739 5.70175 2.08872 5.52121 1.94853 5.41935L0.240677 4.17852C-0.0728089 3.95076 0.0883014 3.45492 0.475791 3.45492H2.58681C2.7601 3.45492 2.91369 3.34333 2.96724 3.17852L3.61958 1.17082Z' fill='%23333333'/%3E%3C/svg%3E%0A");
+                background-repeat: no-repeat;
+                background-position: 3px 3px;
+            }
+
+            &--color-candy {
+                color: $color-candy;
+            }
+        }
+    }
+}

@@ -1,0 +1,35 @@
+{
+    "compilerOptions": {
+      "allowSyntheticDefaultImports": true,
+      "declaration": true,
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "lib": [
+        "dom",
+        "es2015"
+      ],
+      "module": "es2015",
+      "target": "es5",
+      "moduleResolution": "node",
+      "sourceMap": true,
+      "stripInternal": true,
+      "outDir": "dist",
+      "rootDir": ".",
+      "types": [
+        "@types/p-map",
+        "@types/quick-lru"
+      ]
+    },
+    "files": [
+        "./index.ts"
+    ],
+    "angularCompilerOptions": {
+      "enableResourceInlining": true,
+      "strictInjectionParameters": true,
+      "annotateForClosureCompiler": true,
+      "skipTemplateCodegen": false,
+      "strictMetadataEmit": true,
+      "flatModuleOutFile": "badgeup-ionic-client.js",
+      "flatModuleId": "@badgeup/badgeup-ionic-client"
+    }
+  }

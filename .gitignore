@@ -1,27 +1,46 @@
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
+
+#################
+## Repo-specific
+#################
+src/shared/modules/badgeup-client/*.js
+
 #################
 ## Misc
 #################
-**/.DS_Store
-nbproject
-manifest.mf
-build.xml
-node_modules/*
+*~
+*.sw[mnpcod]
+*.log
+*.tmp
+*.tmp.*
+log.txt
+*.sublime-project
+*.sublime-workspace
+
+.ionic/
+.sourcemaps/
+.sass-cache/
+.tmp/
+.versions/
+coverage/
+dist/
+node_modules/
+tmp/
+temp/
+platforms/
+plugins/
+plugins/android.json
+plugins/ios.json
+www/
 npm-debug.log
 coverage
-*.js
-!karma.conf.js
-!karma-test-shim.js
-!webpack.test.js
-!webpack.config.js
-!helpers.js
-!spec-bundle.js
 *.map
 *.d.ts
 !declarations.d.ts
 typings
 dist
 *.metadata.js
-
 
 #################
 ## JetBrains
@@ -36,17 +55,13 @@ dist
 ## Windows
 ############
 
-# Windows image file caches
 Thumbs.db
-
-# Folder config file
 Desktop.ini
+$RECYCLE.BIN/
 
 ############
 ## Mac
 ############
-
-# Mac crap
-.DS_Store
+**/.DS_Store
 .vscode
 yarn-error.log

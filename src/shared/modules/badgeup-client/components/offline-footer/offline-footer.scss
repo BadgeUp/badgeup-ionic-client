@@ -1,0 +1,44 @@
+$almost-white:    #f1f1f1;
+
+offline-footer {
+    .notification {
+        transition: all 2s;
+        padding: 16px;
+
+        justify-content: space-between;
+
+        background-color: $almost-white;
+
+        position: sticky;
+        left: 0;
+        bottom: 0;
+        z-index: 2000;
+        width: 100%;
+
+        &__title {
+            font-size: 14px;
+            font-weight: 600;
+            margin: 0
+        }
+
+        &__content {
+            display: flex;
+        }
+
+        &__icon {
+            display: inline-flex;
+            flex-shrink: 0;
+            align-items: center;
+            justify-content: center;
+
+            width: 35px;
+            height: 35px;
+
+            margin-right: 12px;
+        }
+
+        &__text-wrapper {
+            text-align: left;
+        }
+    }
+}

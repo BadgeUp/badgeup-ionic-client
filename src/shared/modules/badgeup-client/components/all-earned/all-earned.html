@@ -1,0 +1,46 @@
+<ion-content>
+    <div class="section">
+        <h3 class="section-name">Earned Awards</h3>
+        <all-earned-awards></all-earned-awards>
+    </div>
+
+    <!-- split between sections -->
+    <hr>
+
+    <ion-list class="scroll-wrapper" #contents>
+        <div class="section" *ngFor="let dataset of allEarned; let j = index">
+            <h3 class="section-name">Achievements earned {{ dataset.label }}</h3>
+            <ion-grid *ngIf="dataset.value?.length > 0">
+                <div class="number-earned">{{ dataset.value.length }} {{dataset.value.length === 1 ? 'achievement' : 'achievements'}} earned</div>
+                <ion-row>
+                    <ng-container *ngFor="let item of dataset.value; let i = index">
+                        <ion-col class="achmt-item" *ngIf="!item.type" col-4 (click)="tapOnAchievementItem(item, $event.target, i, j)">
+                            <icon-progress
+                                [percentComplete]="1"
+                                [achievement]="item?.achievement"
+                                [size]="'small'"
+                                [showPercentage]="false"
+                            ></icon-progress>
+                            <p class="achievement-name">{{item?.achievement.name}}</p>
+                        </ion-col>
+
+                        <earned-achievement-details *ngIf="selectedAchievementIndex === (j + '-' + i)"
+                            [achItem]="item"
+                        ></earned-achievement-details>
+                    </ng-container>
+                </ion-row>
+            </ion-grid>
+            <div *ngIf="dataset.value?.length === 0">
+                <div class="none-earned">No achievements earned.</div>
+            </div>
+        </div>
+    </ion-list>
+
+    <div class="centered-spinner" *ngIf="isLoading">
+        <ion-spinner></ion-spinner>
+    </div>
+
+    <ion-infinite-scroll (ionInfinite)="getMore($event)">
+        <ion-infinite-scroll-content loadingSpinner="none"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

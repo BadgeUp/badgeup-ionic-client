@@ -1,0 +1,96 @@
+@mixin link {
+    @include font-weight('thin');
+    color: $blue;
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+
+    &:hover {
+        color: darken($blue, 10%);
+    }
+}
+
+@mixin pseudo-elem() {
+    position: absolute;
+    display: block;
+    content: '';
+}
+
+@mixin reset-box-model {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+@mixin reset-font {
+    font: inherit;
+    font-size: 100%;
+    vertical-align: baseline;
+}
+
+@mixin font-weight($weight) {
+    $weights: (
+        thin: 100,
+        extra-light: 200,
+        ultra-light: 200,
+        light: 300,
+        normal: 400,
+        book: 400,
+        regular: 400,
+        medium: 500,
+        semi-bold: 600,
+        demi-bold: 600,
+        bold: 700,
+        extra-bold: 800,
+        ultra-bold: 900,
+        heavy: 900,
+        black: 900,
+        ultra: 900,
+        ultra-black: 900,
+        extra-ultra: 900
+    );
+
+    $output: $weight;
+    @if map-has-key($weights, $weight) {
+        $output: map-get($weights, $weight);
+    }
+
+    font-weight: $output;
+}
+
+@mixin heading {
+    margin-bottom: 0.35em;
+    line-height: 1.2;
+    color: inherit;
+}
+
+@mixin heading-1 {
+    @include heading;
+    font-size: 3.375em;
+}
+
+@mixin heading-2 {
+    @include heading;
+    font-size: 2.966em;
+}
+
+@mixin heading-3 {
+    @include heading;
+    font-size: 1.5em;
+}
+
+@mixin heading-4 {
+    @include heading;
+    font-size: 1.318em;
+}
+
+@mixin heading-5 {
+    @include heading;
+    font-size: 1em;
+}
+
+@mixin heading-6 {
+    @include heading;
+    font-size: 0.875em;
+}

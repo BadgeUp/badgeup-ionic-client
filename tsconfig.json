@@ -1,30 +1,28 @@
 {
   "compilerOptions": {
-    "noImplicitAny": false,
-    "noUnusedLocals": true,
-    "module": "es2015",
-    "target": "es5",
+    "allowSyntheticDefaultImports": true,
+    "declaration": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "declaration": true,
-    "moduleResolution": "node",
-    "types": [
-      "node"
+    "lib": [
+      "dom",
+      "es2015"
     ],
-    "lib": ["es2017", "dom"],
-    "outDir": "dist"
+    "module": "es2015",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "target": "es5",
+    "types": [
+      "@types/p-map",
+      "@types/quick-lru"
+    ]
   },
+  "include": [
+    "src/**/*.ts"
+  ],
   "exclude": [
     "node_modules",
-    "bundles"
-  ],
-  "compileOnSave": false,
-  "angularCompilerOptions": {
-    "strictMetadataEmit": true,
-    "skipTemplateCodegen": true
-  },
-  "files": [
-    "src/declarations.d.ts",
-    "src/index.ts"
+    "src/**/*.spec.ts",
+    "src/shared/modules/badgeup-client/dist/"
   ]
 }
