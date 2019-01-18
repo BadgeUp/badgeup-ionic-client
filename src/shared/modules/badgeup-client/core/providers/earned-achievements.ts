@@ -7,6 +7,7 @@ import { SubjectProvider } from './subject';
 import pMap from 'p-map';
 import QuickLRU from 'quick-lru';
 import { Achievement, EarnedAchievement } from '@badgeup/badgeup-browser-client';
+import { ColorLoaderProvider } from './color-loader';
 
 const LRU_SIZE = 20;
 const MAX_ACH_CONCURRENCY = 3;
@@ -16,7 +17,7 @@ export class EarnedAchievementsProvider {
     // TODO commit and load LRU to/from storage, likely in another provider
     private lru = new QuickLRU({ maxSize: LRU_SIZE });
 
-    constructor(private client: BadgeUpClient, private subjectProvider: SubjectProvider) {
+    constructor(private client: BadgeUpClient, private subjectProvider: SubjectProvider, private colorLoader: ColorLoaderProvider) {
     }
 
     /**
@@ -52,7 +53,8 @@ export class EarnedAchievementsProvider {
 
         const mapper = async (ea: EarnedAchievement) => {
             const ach = await this.retrieveAchievementById(ea.achievementId);
-            return new AchievementAndEarnedAchievement(ach, ea);
+            const color = await this.colorLoader.getColor(ach.meta.icon);
+            return new AchievementAndEarnedAchievement(ach, ea, color || this.colorLoader.BASE_RED_COLOR);
         };
 
         const results = await pMap(all, mapper, { concurrency: MAX_ACH_CONCURRENCY });

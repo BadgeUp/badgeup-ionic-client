@@ -119,7 +119,6 @@ export class BadgeUpClient {
                 er.data = e.data;
             }
         }
-
         this.badgeUpStorage.storeEvent(er);
         this.flush();
     }

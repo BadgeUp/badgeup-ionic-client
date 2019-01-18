@@ -47,6 +47,7 @@ import { OverviewProvider } from './core/providers/overview';
 import { SubjectProvider } from './core/providers/subject';
 import { EarnedAwardsProvider } from './core/providers/earned-awards';
 import { AchievementDetailsProvider } from './core/providers/achievement-details';
+import { ColorLoaderProvider } from './core/providers/color-loader';
 
 export { BadgeUpClient, BadgeUpSettings };
 export { BadgeUpNotificationType, BadgeUpEarnedAchievement } from './declarations';
@@ -146,6 +147,7 @@ export class BadgeUpModule {
                 EarnedAchievementsProvider,
                 EarnedAwardsProvider,
                 AchievementDetailsProvider,
+                ColorLoaderProvider,
                 {
                     provide: BADGEUP_FORROOT_GUARD,
                     useFactory: provideForRootGuard,
