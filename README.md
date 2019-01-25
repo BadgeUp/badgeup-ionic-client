@@ -14,8 +14,13 @@ If you plan to use this client with old browsers, you will likely need to polyfi
 * [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
 * [URLSearchParams](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams)
 
+## API Keys
+You will need to configure an API key with the following scopes:
+
+`achievement:read`, `award:read`, `criterion:read`, `earnedachievement:read`, `earnedaward:read`, `event:create`, `metric:read`, `progress:read`
+
 ## Initialization
-Generate an API key for your application from [BadgeUp dashboard](https://dashboard.badgeup.io/), and configure `@badgeup\badgeup-ionic-client` by adding the BadgeUp Ionic module to the imports in `app.module.ts`.
+Generate an API key for your application from [BadgeUp dashboard](https://dashboard.badgeup.io/) with the permissions listed above, and configure `@badgeup\badgeup-ionic-client` by adding the BadgeUp Ionic module to the imports in `app.module.ts`.
 
 ```js
 import {BadgeUpModule} from '@badgeup/badgeup-ionic-client';
