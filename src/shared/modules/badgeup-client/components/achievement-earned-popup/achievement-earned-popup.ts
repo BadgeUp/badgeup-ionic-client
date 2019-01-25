@@ -39,7 +39,7 @@ export class AchievementEarnedPopupComponent implements OnInit {
                 this.baseColor = newPrimaryColor;
             }
         // unable to set color here
-        } catch(e) {}
+        } catch(e) { /* do nothing */ }
     }
 
     private parseRGB(color: string): { r: number, g: number, b: number } {
@@ -54,7 +54,7 @@ export class AchievementEarnedPopupComponent implements OnInit {
     public get boxShadow(): string {
 
         let rgb = this.parseRGB(this.baseColor);
-        if(!rgb) {
+        if (!rgb) {
             rgb = this.parseRGB(this.colorLoader.BASE_RED_COLOR);
         }
 
