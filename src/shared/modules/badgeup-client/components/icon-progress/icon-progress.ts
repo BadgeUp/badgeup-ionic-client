@@ -15,6 +15,7 @@ export class AchievementIconComponent implements AfterViewInit {
     @Input() public percentComplete: number = 0;
     @Input() public showPercentage = true;
     @Input() public size: string = 'big'; // TODO: enum: big, small
+    @Input() public barColor: string = '#8CC152';
 
     @ViewChild('progressPath') private progressPath;
 

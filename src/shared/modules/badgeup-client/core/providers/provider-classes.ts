@@ -3,9 +3,11 @@ import { Achievement, EarnedAchievement, Progress, Award, EarnedAward } from '@b
 export class AchievementAndEarnedAchievement {
     public achievement: Achievement;
     public earnedAchievement: EarnedAchievement;
-    constructor(ach: Achievement, ea: EarnedAchievement) {
+    public achievementColor: string;
+    constructor(ach: Achievement, ea: EarnedAchievement, ac?: string) {
         this.achievement = ach;
         this.earnedAchievement = ea;
+        this.achievementColor = ac;
     }
 }
 
