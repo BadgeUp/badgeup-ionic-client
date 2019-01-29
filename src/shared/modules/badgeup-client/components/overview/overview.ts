@@ -11,6 +11,7 @@ export class OverviewComponent implements OnInit {
     constructor(private overviewProvider: OverviewProvider, private subjectProvider: SubjectProvider) {}
 
     public ngOnInit() {
+        // fetch new data, updating the behavior subjects that back the overview components
         this.overviewProvider.load(this.subjectProvider.currentSubject);
     }
 }
