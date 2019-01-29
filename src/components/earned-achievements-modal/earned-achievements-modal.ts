@@ -1,3 +1,7 @@
+/**
+ * demo file only, not part of bundled ionic client
+ */
+
 import { Component } from '@angular/core';
 import { ViewController } from 'ionic-angular';
 

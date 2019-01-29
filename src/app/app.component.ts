@@ -1,3 +1,7 @@
+/**
+ * demo file only, not part of bundled ionic client
+ */
+
 import { Component } from '@angular/core';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';

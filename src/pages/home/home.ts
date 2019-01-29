@@ -1,3 +1,7 @@
+/**
+ * demo file only, not part of bundled ionic client
+ */
+
 import { Component } from '@angular/core';
 import { ModalController } from 'ionic-angular';
 import { BadgeUpClient } from '../../shared/modules/badgeup-client';

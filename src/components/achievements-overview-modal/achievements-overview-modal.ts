@@ -1,3 +1,7 @@
+/**
+ * demo file only, not part of bundled ionic client
+ */
+
 import { Component } from '@angular/core';
 import { ViewController, ModalController } from 'ionic-angular';
 import { EarnedAchievementsModalComponent } from '../earned-achievements-modal/earned-achievements-modal';

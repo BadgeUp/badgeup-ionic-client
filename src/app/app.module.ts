@@ -1,3 +1,7 @@
+/**
+ * demo file only, not part of bundled ionic client
+ */
+
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { SplashScreen } from '@ionic-native/splash-screen';
