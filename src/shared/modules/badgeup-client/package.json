@@ -19,7 +19,7 @@
     "ionic_copy": "./copy.config.js"
   },
   "dependencies": {
-    "@badgeup/badgeup-browser-client": "2.0.5",
+    "@badgeup/badgeup-browser-client": "3.0.0",
     "date-fns": "2.0.0-alpha.25",
     "lodash.get": "^4.4.2",
     "p-map": "2.0.0",
