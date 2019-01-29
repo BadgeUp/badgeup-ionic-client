@@ -103,7 +103,7 @@ export class BadgeUpClient {
             throw new TypeError('[BadgeUp] Event key has to be of type string');
         }
 
-        const subject = e.subject || this.subjectProvider.subjectSubject.getValue();
+        const subject = e.subject || this.subjectProvider.currentSubject;
 
         const er = new EventRequest(
             subject,
