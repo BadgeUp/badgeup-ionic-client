@@ -1,3 +1,11 @@
+# Node.js ecosystem files
+node_modules
+npm-debug.log
+
+# OS files
+Thumbs.db
+.DS_Store
+
 # ignore .ts files
 *.ts
 
