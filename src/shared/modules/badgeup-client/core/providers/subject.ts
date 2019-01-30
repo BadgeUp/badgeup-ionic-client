@@ -2,6 +2,10 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 export class SubjectProvider {
 
+    public get currentSubject() {
+        return this.subjectSubject.getValue();
+    }
+
     /**
      * The BehaviorSubject containing the current subject to be used in events
      */
