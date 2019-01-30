@@ -17,7 +17,7 @@ If you plan to use this client with old browsers, you will likely need to polyfi
 ## API Keys
 You will need to configure an API key with the following scopes:
 
-`achievement:read`, `award:read`, `criterion:read`, `earnedachievement:read`, `earnedaward:read`, `event:create`, `metric:read`, `progress:read`
+`achievement:read`, `award:read`, `criterion:read`, `earnedachievement:read`, `earnedaward:read`, `event:create`, `progress:read`
 
 ## Initialization
 Generate an API key for your application from [BadgeUp dashboard](https://dashboard.badgeup.io/) with the permissions listed above, and configure `@badgeup\badgeup-ionic-client` by adding the BadgeUp Ionic module to the imports in `app.module.ts`.

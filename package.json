@@ -1,7 +1,7 @@
 {
   "name": "@badgeup/badgeup-ionic-client-demo",
   "description": "BadgeUp Ionic achievement UI components",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0",
   "author": "Mark Herhold <mark@badgeup.io>",
   "homepage": "https://www.badgeup.io/",
   "private": true,
