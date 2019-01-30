@@ -13,7 +13,7 @@
       "moduleResolution": "node",
       "sourceMap": true,
       "stripInternal": true,
-      "outDir": "dist",
+      "outDir": ".",
       "rootDir": ".",
       "types": [
         "@types/p-map",

@@ -12,4 +12,5 @@ jobs:
       script:
         - cd src/shared/modules/badgeup-client
         - npm ci
-        - npm run package-module
+        - npm run build-module
+        - npm run check-module

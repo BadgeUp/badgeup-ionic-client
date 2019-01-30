@@ -7,11 +7,9 @@
   "main": "badgeup-ionic-client.js",
   "typings": "badgeup-ionic-client.d.ts",
   "scripts": {
-    "package-module": "npm run clean-module && npm run copy-module && npm run build-module && npm run pack-module",
-    "clean-module": "rm -rf dist",
-    "copy-module": "rsync -a ./ dist/ --exclude=node_modules",
-    "build-module": "ngc --project dist/tsconfig.json --outDir dist",
-    "pack-module": "cd dist && npm pack && cd -"
+    "build-module": "ngc --project tsconfig.json --outDir .",
+    "check-module": "if [ ! -f badgeup-ionic-client.metadata.json ]; then echo 'metadata file not found'; exit 1; fi",
+    "prepublishOnly": "npm run build-module && npm run check-module"
   },
   "config": {
     "ionic_bundler": "webpack",

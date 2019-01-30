@@ -4,7 +4,11 @@
 #################
 ## Repo-specific
 #################
-src/shared/modules/badgeup-client/*.js
+src/shared/modules/badgeup-client/**/*.js
+src/shared/modules/badgeup-client/**/*.map
+src/shared/modules/badgeup-client/**/*.d.ts
+src/shared/modules/badgeup-client/**/*.ngsummary.json
+src/shared/modules/badgeup-client/badgeup-ionic-client.metadata.json
 
 #################
 ## Misc
