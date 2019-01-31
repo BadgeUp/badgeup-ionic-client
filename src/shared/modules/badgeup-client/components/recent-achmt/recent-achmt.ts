@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import * as get from 'lodash.get';
+import { get } from 'dot-prop';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { OverviewProvider } from '../../core/providers/overview';

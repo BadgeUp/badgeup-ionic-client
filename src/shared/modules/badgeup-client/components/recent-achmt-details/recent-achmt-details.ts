@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import formatDistance from 'date-fns/formatDistance';
-import * as get from 'lodash.get';
+import { get } from 'dot-prop';
 import { AchievementAndEarnedAchievement, AwardAndEarnedAward } from '../../core/providers/provider-classes';
 import { EarnedAwardsProvider } from '../../core/providers/earned-awards';
 

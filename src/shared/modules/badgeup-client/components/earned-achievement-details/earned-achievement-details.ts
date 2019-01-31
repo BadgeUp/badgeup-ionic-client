@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { AchievementAndEarnedAchievement } from '../../core/providers/provider-classes';
 import formatDistance from 'date-fns/formatDistance';
-import * as get from 'lodash.get';
+import { get } from 'dot-prop';
 
 /**
  * Achievement details for earned awards
