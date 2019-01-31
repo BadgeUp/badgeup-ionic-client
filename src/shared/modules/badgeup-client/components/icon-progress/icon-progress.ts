@@ -1,6 +1,6 @@
 import { Component, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { Achievement } from '@badgeup/badgeup-browser-client';
-import * as get from 'lodash.get';
+import { get } from 'dot-prop';
 import { tween } from 'shifty';
 
 const RADIUS = 46;
