@@ -28,6 +28,6 @@
             class="badgeup-icon-progress__text"
             [ngClass]="{'badgeup-icon-progress__text--position-right': size !== 'small'}"
             *ngIf="showPercentage"
-        >{{ percentComplete * 100 }}</div>
+        >{{ percentComplete | percent }}</div>
     </div>
 </div>

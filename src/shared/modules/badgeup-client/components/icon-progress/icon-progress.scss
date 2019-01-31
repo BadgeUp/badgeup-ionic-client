@@ -76,11 +76,6 @@
         color: $green;
         white-space: nowrap;
 
-        &:after {
-            display: inline-block;
-            content:' %';
-        }
-
         &--position-right {
             position: absolute;
             z-index: 10;
