@@ -8,11 +8,21 @@
 </ion-header>
 
 <ion-content padding>
+    <img class="logo" src="assets/imgs/bup-logo.svg" alt="logo">
+    <h1>BadgeUp Ionic Client Demo App</h1>
+    <p>This application demonstrates the out-of-the box functionality of the <a href="https://github.com/BadgeUp/badgeup-ionic-client">BadgeUp Ionic client, <code>@badgeup/badgeup-ionic-client</code></a></p>
 
-    <h1>Demo App</h1>
-    <p>Try opening the overview. In your app, you'll have buttons or other elements trigger the overview.</p>
+    <h2>Interaction</h2>
+    <p>Open the achievement overview below by clicking the button below.</p>
+    <p>In an actual app, the overview might be a tab or dedicated page.</p>
     <button ion-button block (click)="openOverlay()">Open Achievement Overview</button>
 
-    <p>This button sends an event that may earn an achievement. When an achievement is earned, a popup is presented.</p>
+    <hr>
+
+    <p>This button sends an event, <code>achievement-please</code> that may earn an achievement. This represents a user interaction event.</p>
+    <p>When an achievement is earned, a popup is presented by the ionic client.</p>
     <button ion-button block (click)="sendEvent()">Send Event</button>
+
+    <h1>Support</h1>
+    <p>If you encounter problems running this demo or would like help integrating into your own app, contact <a href="mailto:support@badgeup.io">support@badgeup.io</a></p>
 </ion-content>

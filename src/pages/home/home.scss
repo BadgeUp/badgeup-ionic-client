@@ -3,5 +3,11 @@
  */
 
 page-home {
+    h1, h2, h3 {
+        margin-bottom: 10px;
+    }
 
+    .logo {
+        max-width: 200px;
+    }
 }
