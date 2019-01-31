@@ -38,13 +38,6 @@ plugins/android.json
 plugins/ios.json
 www/
 npm-debug.log
-coverage
-*.map
-*.d.ts
-!declarations.d.ts
-typings
-dist
-*.metadata.js
 
 #################
 ## JetBrains
