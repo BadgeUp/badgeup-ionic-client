@@ -5,6 +5,8 @@ import { EarnedAchievementsModalComponent } from './earned-achievements-modal/ea
 import { IonicModule } from 'ionic-angular';
 import { NgModule } from '@angular/core';
 
+const BADGEUP_API_KEY = 'eyJhY2NvdW50SWQiOiJzODQwM2QzcGwiLCJhcHBsaWNhdGlvbklkIjoieWFuZTJsbmZzNSIsImtleSI6ImNqcDd1YXVpNTJweTNvMmJqZmViZnJ1ZWoifQ==';
+
 /*
  * Components feature module
  */
@@ -12,7 +14,7 @@ import { NgModule } from '@angular/core';
     imports: [
         CommonModule,
         IonicModule,
-        BadgeUpModule.forRoot({ apiKey: 'YOUR API KEY HERE' })
+        BadgeUpModule.forRoot({ apiKey: BADGEUP_API_KEY })
     ],
     declarations: [
         EarnedAchievementsModalComponent,
