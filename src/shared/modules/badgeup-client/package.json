@@ -9,7 +9,8 @@
   "scripts": {
     "build-module": "ngc --project tsconfig.json --outDir .",
     "check-module": "if [ ! -f badgeup-ionic-client.metadata.json ]; then echo 'metadata file not found'; exit 1; fi",
-    "prepublishOnly": "npm run build-module && npm run check-module"
+    "copy-readme": "cp ../../../../README.md ./",
+    "prepublishOnly": "npm run build-module && npm run check-module && copy-readme"
   },
   "config": {
     "ionic_bundler": "webpack",

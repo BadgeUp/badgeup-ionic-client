@@ -9,6 +9,8 @@ src/shared/modules/badgeup-client/**/*.map
 src/shared/modules/badgeup-client/**/*.d.ts
 src/shared/modules/badgeup-client/**/*.ngsummary.json
 src/shared/modules/badgeup-client/badgeup-ionic-client.metadata.json
+# README is copied from root at publish time
+src/shared/modules/badgeup-client/README.md
 
 #################
 ## Misc
