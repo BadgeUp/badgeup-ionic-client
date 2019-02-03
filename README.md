@@ -152,26 +152,11 @@ For example, if you want to track list refreshes as event key "list:refresh", yo
 <button badgeUpClickEvent="list:refresh">Refresh the list</button>
 ```
 
-You can also easily pass data using the badgeUpClickEventData attribute:
-
-```html
-<button badgeUpClickEvent="list:refresh"
-        badgeUpClickEventData="{foo: true}">Refresh the list</button>
-```
-
 You can also provide your own event modifier. The following code would decrement the value by one when you click 'Refresh the list'.
 ```html
 <button badgeUpClickEvent="list:refresh"
         badgeUpClickEventModifier="@dec"
         badgeUpClickEventModifierValue="1">Refresh the list</button>
-```
-
-If you'd like to pass dynamic data to any of the attributes, you'd have to use property binding syntax. Just add square brackets:
-```html
-<button badgeUpClickEvent="list:refresh"
-        [badgeUpClickEventData]="{userRank: getUserRank()}">
-        Refresh the list
-</button>
 ```
 
 ## Accessing the Underlying JS Client
