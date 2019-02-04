@@ -22,7 +22,8 @@ const BADGEUP_API_KEY = 'eyJhY2NvdW50SWQiOiJzODQwM2QzcGwiLCJhcHBsaWNhdGlvbklkIjo
     ],
     exports: [
         EarnedAchievementsModalComponent,
-        AchievementsOverviewModalComponent
+        AchievementsOverviewModalComponent,
+        BadgeUpModule
     ]
 })
 export class AppComponentsModule { }
