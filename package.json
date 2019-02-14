@@ -10,7 +10,8 @@
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
     "build:prod": "ionic-app-scripts build --prod",
-    "lint": "ionic-app-scripts lint"
+    "lint": "ionic-app-scripts lint",
+    "preversion": "echo 'the badgeup-client module should be versioned, not this one'; exit 1"
   },
   "config": {
     "ionic_bundler": "webpack",
